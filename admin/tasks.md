@@ -5,15 +5,15 @@ Use the entries below as an example.
 
 ## Week 4
 
-Everyone: create application skeleton - meeting 14:00 20 Mar
+Everyone: take an initial view of Assignment 2 together and discuss about it- meeting undecided.
 
 ## Week 5
 
-Zhang San: Task 3 isPiecePlacementWellFormed - 26 Mar
+(Zhang San: Task 3 isPiecePlacementWellFormed - 26 Mar
 
 Jane Bloggs: Task 4 getNeighbours - 27 Mar
 
-Erika Mustermann: Task 6 getViablePiecePlacements - 28 Mar (depends on Task 3)
+Erika Mustermann: Task 6 getViablePiecePlacements - 28 Mar (depends on Task 3))
 
 ## Week 6
 
