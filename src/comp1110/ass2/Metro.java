@@ -139,6 +139,7 @@ public class Metro {
      * @return a random tile from the deck
      */
     public static String drawFromDeck(String placementSequence) {
+        System.out.println("placementSequence: " + placementSequence);
         // create total tiles list
         List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
         List<String> list1 = Arrays.asList("cbcb", "bcbc");
@@ -189,7 +190,7 @@ public class Metro {
         //random a tile from the leftover list
         int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
         String randTile = joinedList.get(randIndex);
-
+        System.out.println("randTile: " + randTile);
         return randTile;
     }
 
