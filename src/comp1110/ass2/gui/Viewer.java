@@ -41,7 +41,8 @@ public class Viewer extends Application {
     private final Group tiles = new Group();
     private final Group board = new Group();
     private final Group station_imgs = new Group();
-    private final Group tile_imgs = new Group();
+    private final Group board_imgs = new Group();
+    private final Group draggable_imgs = new Group();
     private TextField textField;
 
     private static final int TILE_SPACING = 150;
@@ -58,8 +59,8 @@ public class Viewer extends Application {
      *
      * @param placement A valid placement string
      */
-    void makePlacement(String placement) {
-        tile_imgs.getChildren().clear();
+    void makePlacement(String placement) { // FIXME Task 4: implement the simple placement viewer
+        board_imgs.getChildren().clear();
         for (int i = 0; i < placement.length(); i += 6) {
             ImageView img = new ImageView();
             img.setImage(new Image(getClass().getResource(URI_BASE + placement.substring(i, i + 4) + ".jpg").toString()));
@@ -67,11 +68,11 @@ public class Viewer extends Application {
             img.setFitHeight(SQUARE_SIZE - 1);
             img.setLayoutX(MARGIN_X - 5 + (placement.charAt(i + 5) - '0' + 1) * SQUARE_SIZE);
             img.setLayoutY(MARGIN_Y - 5 + (placement.charAt(i + 4) - '0' + 1) * SQUARE_SIZE);
-            tile_imgs.getChildren().add(img);
+            board_imgs.getChildren().add(img);
         }
-        root.getChildren().add(tile_imgs);
+        root.getChildren().add(board_imgs);
     }
-    //FIXME Task 4: implement the simple placement viewer
+
     private void makeStations() {
         for (int i = 1; i <= 8; i++) {
             ImageView img = new ImageView();
@@ -112,10 +113,34 @@ public class Viewer extends Application {
 
         ImageView img = new ImageView();
         img.setImage(new Image(getClass().getResource(URI_BASE + "centre_station.jpg").toString()));
-        img.setFitWidth(SQUARE_SIZE * 2 - 1);
-        img.setFitHeight(SQUARE_SIZE * 2 - 1);
-        img.setLayoutX(MARGIN_X - 4 + 4 * SQUARE_SIZE);
-        img.setLayoutY(MARGIN_Y - 4 + 4 * SQUARE_SIZE);
+        img.setFitWidth(SQUARE_SIZE - 1);
+        img.setFitHeight(SQUARE_SIZE - 1);
+        img.setLayoutX(MARGIN_X - 5 + 4 * SQUARE_SIZE);
+        img.setLayoutY(MARGIN_Y - 5 + 4 * SQUARE_SIZE);
+        img.setRotate(270);
+        station_imgs.getChildren().add(img);
+        img = new ImageView();
+        img.setImage(new Image(getClass().getResource(URI_BASE + "centre_station.jpg").toString()));
+        img.setFitWidth(SQUARE_SIZE - 1);
+        img.setFitHeight(SQUARE_SIZE - 1);
+        img.setLayoutX(MARGIN_X - 5 + 4 * SQUARE_SIZE);
+        img.setLayoutY(MARGIN_Y - 5 + 5 * SQUARE_SIZE);
+        img.setRotate(180);
+        station_imgs.getChildren().add(img);
+        img = new ImageView();
+        img.setImage(new Image(getClass().getResource(URI_BASE + "centre_station.jpg").toString()));
+        img.setFitWidth(SQUARE_SIZE - 1);
+        img.setFitHeight(SQUARE_SIZE - 1);
+        img.setLayoutX(MARGIN_X - 5 + 5 * SQUARE_SIZE);
+        img.setLayoutY(MARGIN_Y - 5 + 4 * SQUARE_SIZE);
+        station_imgs.getChildren().add(img);
+        img = new ImageView();
+        img.setImage(new Image(getClass().getResource(URI_BASE + "centre_station.jpg").toString()));
+        img.setFitWidth(SQUARE_SIZE - 1);
+        img.setFitHeight(SQUARE_SIZE - 1);
+        img.setLayoutX(MARGIN_X - 5 + 5 * SQUARE_SIZE);
+        img.setLayoutY(MARGIN_Y - 5 + 5 * SQUARE_SIZE);
+        img.setRotate(90);
         station_imgs.getChildren().add(img);
 
         root.getChildren().add(station_imgs);
@@ -133,7 +158,7 @@ public class Viewer extends Application {
         baseboard.setArcHeight(20.0);
         baseboard.setFill(Color.CORNFLOWERBLUE);
         baseboard.setStroke(Color.CYAN);
-        baseboard.setOpacity(0.6);
+        baseboard.setOpacity(0.7);
 
         DropShadow dropShadow = new DropShadow();
         dropShadow.setOffsetX(2.0);
@@ -169,8 +194,6 @@ public class Viewer extends Application {
         for (int i = 0; i < 9; i++)
             gc.strokeLine(x_shift, y_shift + i * SQUARE_SIZE,
                     x_final, y_shift + i * SQUARE_SIZE);
-
-
         gc.restore();
     }
 
@@ -212,4 +235,3 @@ public class Viewer extends Application {
         primaryStage.show();
     }
 }
-
