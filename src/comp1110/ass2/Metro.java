@@ -1,12 +1,10 @@
 package comp1110.ass2;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Metro {
     /**
@@ -66,12 +64,12 @@ public class Metro {
         //count how many times the substring appears in the larger string
 
 
-        String[] list = {"aacb", "cbaa", "acba", "baac", "aaaa"};
+        String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
         int[] num = {0, 0, 0, 0, 0};
 
-        for (int i = 0; i < list.length; i++) {
+        for (int i = 0; i < list0.length; i++) {
 
-            Matcher matcher = Pattern.compile(list[i]).matcher(placement);
+            Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
 
             while (matcher.find()) {
                 num[i]++;
@@ -91,7 +89,7 @@ public class Metro {
             }
         }
 
-        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada"};
+        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"};
         int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         for (int i = 0; i < list2.length; i++) {
@@ -141,9 +139,67 @@ public class Metro {
      * @return a random tile from the deck
      */
     public static String drawFromDeck(String placementSequence) {
-        // FIXME Task 5: draw a random tile from the deck
-        return "";
+        System.out.println("placementSequence: " + placementSequence);
+        // create total tiles list
+        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
+        List<String> list1 = Arrays.asList("cbcb", "bcbc");
+        List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
+
+        List<String> repeatList0 = new ArrayList<>();
+        List<String> repeatList1 = new ArrayList<>();
+        List<String> repeatList2 = new ArrayList<>();
+
+        int indexOfList0 = 0;
+        int indexOfList1 = 0;
+        int indexOfList2 = 0;
+
+        for (int i = 1; i < list0.size() * 4 + 1; i++) {
+            repeatList0.add(list0.get(indexOfList0++));
+            if (indexOfList0 == list0.size()) {
+                indexOfList0 = 0;
+            }
+        }
+
+        for (int i = 1; i < list1.size() * 3 + 1; i++) {
+            repeatList1.add(list1.get(indexOfList1++));
+            if (indexOfList1 == list1.size()) {
+                indexOfList1 = 0;
+            }
+        }
+
+        for (int i = 1; i < list2.size() * 2 + 1; i++) {
+            repeatList2.add(list2.get(indexOfList2++));
+            if (indexOfList2 == list2.size()) {
+                indexOfList2 = 0;
+            }
+        }
+
+        List<String> joinedList = new ArrayList<>();
+        Stream.of(repeatList0, repeatList1, repeatList2).forEach(joinedList::addAll);
+        String[] allTiles = joinedList.toArray(new String[0]);
+
+        //remove the tile been placed and get the leftover list
+        for (int i = 0; i < allTiles.length; i++) {
+            Matcher matcher = Pattern.compile(allTiles[i]).matcher(placementSequence);
+            while (matcher.find()) {
+                joinedList.remove(allTiles[i]);
+                placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTiles[i])) + placementSequence.substring(placementSequence.indexOf(allTiles[i]) + 6);
+            }
+        }
+
+        //random a tile from the leftover list
+        int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
+        String randTile = joinedList.get(randIndex);
+        System.out.println("randTile: " + randTile);
+        return randTile;
     }
+
+    // FIXME Task 5: draw a random tile from the deck
+
+
+    // check tails been placed
+    // left
+    // Random a tail form the deck
 
     /**
      * Task 6
