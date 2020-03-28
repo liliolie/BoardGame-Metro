@@ -138,6 +138,7 @@ public class Metro {
      *                          that have already been played
      * @return a random tile from the deck
      */
+
     public static String drawFromDeck(String placementSequence) {
         // create total tiles list
         List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
