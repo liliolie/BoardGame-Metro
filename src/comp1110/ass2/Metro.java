@@ -4,6 +4,7 @@ package comp1110.ass2;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Metro {
@@ -68,12 +69,9 @@ public class Metro {
         int[] num = {0, 0, 0, 0, 0};
 
         for (int i = 0; i < list0.length; i++) {
-
             Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
-
             while (matcher.find()) {
                 num[i]++;
-
             }
         }
 
@@ -81,9 +79,7 @@ public class Metro {
         int[] num1 = {0, 0};
 
         for (int i = 0; i < list1.length; i++) {
-
             Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
-
             while (matcher.find()) {
                 num1[i]++;
             }
@@ -93,9 +89,7 @@ public class Metro {
         int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         for (int i = 0; i < list2.length; i++) {
-
             Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
-
             while (matcher.find()) {
                 num2[i]++;
             }
@@ -122,6 +116,7 @@ public class Metro {
                 }
             }
         } else return false;
+
         if (Collections.max(intList).compareTo(4) > 0 || Collections.max(intList1).compareTo(3) > 0 || Collections.max(intList2).compareTo(2) > 0) {
             return false;
         }
@@ -217,10 +212,61 @@ public class Metro {
      */
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
-        return false;
+
+        // check if the pieces overlap
+        String placementPosition = placementSequence.replaceAll("([a-z])", "");
+        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
+        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
+
+        if (placementSequence.length() % 6 == 0) {
+            if (position.size() != uniquePosition.size()) {
+                return false;
+            }
+        }else return false;
+
+        // check if the placementSequence overlap the central stations
+        List<String> centralPosition = Arrays.asList("33","34","43","44");
+        String [] centralArray = centralPosition.toArray(new String[0]);
+        for (int i = 0; i < centralPosition.size(); i++) {
+            Matcher matcher = Pattern.compile(centralArray[i]).matcher(placementSequence);
+            while (matcher.find()) {
+                return false;
+            }
+        }
+
+        //check the piece on the edge and the corner
+
+            //1. check piece on the edges (top and central station)
+
+
+
+
+
+
+
+
+
+        return true;
 
 
     }
+    //check overlap
+
+
+
+
+
+    //check dead end
+
+    // d track can not place
+    // all the dxxx can not place on the board with x=0 (top) && (5,3) (5,4) (central stations)
+    // all the xdxx can not place on the board with y=7 (right) && (3,2) (4,2)
+    // all the xxdx can not place on the board with x=7 (bottom) && (2,3) (2,4)
+    // all the xxxd can not place on the board with y=0 (left) && (3,5) (4,5)
+
+
+
+
 
     /**
      * Task 7
@@ -234,6 +280,9 @@ public class Metro {
         // FIXME Task 7: determine the current score for the game
         return new int[0];
     }
+
+
+
 
     /**
      * Task 9
