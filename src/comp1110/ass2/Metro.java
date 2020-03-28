@@ -136,10 +136,12 @@ public class Metro {
      *
      * @param placementSequence a String representing the sequence of tiles
      *                          that have already been played
+     * @param totalHands        a String representing all tiles (if any) in
+     *                          all players' hands
      * @return a random tile from the deck
      */
+    public static String drawFromDeck(String placementSequence, String totalHands) {
 
-    public static String drawFromDeck(String placementSequence) {
         // create total tiles list
         List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
         List<String> list1 = Arrays.asList("cbcb", "bcbc");
