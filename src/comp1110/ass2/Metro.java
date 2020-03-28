@@ -197,7 +197,7 @@ public class Metro {
 
 
     // check tails been placed
-    // left
+    // leftover
     // Random a tail form the deck
 
     /**
