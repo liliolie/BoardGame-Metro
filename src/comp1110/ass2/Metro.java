@@ -180,12 +180,19 @@ public class Metro {
         Stream.of(repeatList0, repeatList1, repeatList2).forEach(joinedList::addAll);
         String[] allTiles = joinedList.toArray(new String[0]);
 
-        //remove the tile been placed and get the leftover list
+        //remove the tile been placed and in hands to get the leftover list
         for (int i = 0; i < allTiles.length; i++) {
             Matcher matcher = Pattern.compile(allTiles[i]).matcher(placementSequence);
             while (matcher.find()) {
                 joinedList.remove(allTiles[i]);
                 placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTiles[i])) + placementSequence.substring(placementSequence.indexOf(allTiles[i]) + 6);
+            }
+        }
+        for (int i = 0; i < allTiles.length; i++) {
+        Matcher matcher1 = Pattern.compile(allTiles[i]).matcher(totalHands);
+            while (matcher1.find()) {
+                joinedList.remove(allTiles[i]);
+                totalHands = totalHands.substring(0, totalHands.indexOf(allTiles[i])) + totalHands.substring(totalHands.indexOf(allTiles[i]) + 3);
             }
         }
 
