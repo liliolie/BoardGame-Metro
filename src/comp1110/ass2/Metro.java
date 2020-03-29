@@ -59,6 +59,14 @@ import java.util.stream.Stream;
  *     return true;
  */
 
+/**
+ * Add UI interaction features on Viewer.java to improve gaming experience
+ * Build up a touchable function for moving tiles and drag&release
+ * set up Hotkey on keyboard for rotation and change tiles
+ * Insert music and play the sound when user interact with our UI
+ * Support higher resolution
+ */
+
 
 public class Metro {
     /**
