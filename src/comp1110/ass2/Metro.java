@@ -6,6 +6,60 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+
+/**
+ * The difficulty slider
+ * <p>
+ * the player can choose opponents from normal computer opponents or advanced computer opponents
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * display all of the legal moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to choose a given difficulty level
+ * The method should select a difficulty level from the level 1 to level three
+ */
+
+/**
+ * The number of opponents slider
+ *
+ * the player will choose opponents number from 1 to 5
+ */
+
+/**
+ * Add a method to display potential moves
+ *
+ * display all of the legal moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ */
+
+/**
+ * message on completion
+ */
+
+/**
+ * Add a method to choose a given difficulty level
+ * The method should select a difficulty level from the level 1 to level three
+ */
+
+/**
+ * Add a method to detect if the game is over
+ *
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ *     return true;
+ */
+
+
 public class Metro {
     /**
      * Task 2
@@ -269,4 +323,6 @@ public class Metro {
         // FIXME Task 9: generate a valid move
         return "";
     }
+
+
 }
