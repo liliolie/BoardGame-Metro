@@ -8,23 +8,9 @@ import java.util.stream.Stream;
 
 
 /**
- * The difficulty slider
- * <p>
- * the player can choose opponents from normal computer opponents or advanced computer opponents
- * <p>
- * The number of opponents slider
- * <p>
- * the player will choose opponents number from 1 to 5
- * <p>
- * Add a method to display potential moves
- * <p>
- * display all of the legal moves as partially transparent pieces
- * the player click one of the partially transparent pieces to make their move
- * <p>
- * message on completion
- * <p>
- * Add a method to choose a given difficulty level
- * The method should select a difficulty level from the level 1 to level three
+ * Difficulty level slider
+ *
+ * the player will choose difficulty level from level 1 to level 3
  */
 
 /**
@@ -36,7 +22,7 @@ import java.util.stream.Stream;
 /**
  * Add a method to display potential moves
  *
- * display all of the legal moves as partially transparent pieces
+ * display all of the valid moves as partially transparent pieces
  * the player click one of the partially transparent pieces to make their move
  */
 
@@ -46,7 +32,14 @@ import java.util.stream.Stream;
 
 /**
  * Add a method to choose a given difficulty level
- * The method should select a difficulty level from the level 1 to level three
+ *
+ * The method should select a difficulty level from the level 1 to level 3
+ */
+
+/**
+ * Construct a game for a given level of difficulty, given number of players
+ *
+ * This create a new instance of the game at the given level of difficulty and number of players
  */
 
 /**
