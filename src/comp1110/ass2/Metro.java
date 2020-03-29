@@ -180,7 +180,7 @@ public class Metro {
         Stream.of(repeatList0, repeatList1, repeatList2).forEach(joinedList::addAll);
         String[] allTiles = joinedList.toArray(new String[0]);
 
-        //remove the tile been placed and in hands to get the leftover list
+        //remove the tile been placed
         for (int i = 0; i < allTiles.length; i++) {
             Matcher matcher = Pattern.compile(allTiles[i]).matcher(placementSequence);
             while (matcher.find()) {
@@ -188,11 +188,20 @@ public class Metro {
                 placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTiles[i])) + placementSequence.substring(placementSequence.indexOf(allTiles[i]) + 6);
             }
         }
+
+        // remove the tiles in all hands
+        char separator = '_';
+        StringBuilder totalHands1 = new StringBuilder(totalHands);
+        for (int i = 0; i < totalHands.length() / 4; i++) {
+            totalHands1.insert(((i + 1) * 4) + i, separator);
+        }
+        String totalHandsNew = totalHands1.toString();
+
         for (int i = 0; i < allTiles.length; i++) {
-        Matcher matcher1 = Pattern.compile(allTiles[i]).matcher(totalHands);
+            Matcher matcher1 = Pattern.compile(allTiles[i]).matcher(totalHandsNew);
             while (matcher1.find()) {
                 joinedList.remove(allTiles[i]);
-                totalHands = totalHands.substring(0, totalHands.indexOf(allTiles[i])) + totalHands.substring(totalHands.indexOf(allTiles[i]) + 3);
+                totalHandsNew = totalHandsNew.substring(0, totalHandsNew.indexOf(allTiles[i])) + totalHandsNew.substring(totalHandsNew.indexOf(allTiles[i]) + 4);
             }
         }
 
