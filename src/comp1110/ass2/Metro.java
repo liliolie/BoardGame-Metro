@@ -4,13 +4,34 @@ package comp1110.ass2;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 /**
  * Difficulty level slider
- *
+ * <p>
  * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is player's turn
+ * display all of the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to choose a given difficulty level
+ * <p>
+ * The method should select a difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This create a new instance of the game at the given level of difficulty and number of players
  */
 
 /**
@@ -22,6 +43,7 @@ import java.util.stream.Stream;
 /**
  * Add a method to display potential moves
  *
+ * when it is player's turn
  * display all of the valid moves as partially transparent pieces
  * the player click one of the partially transparent pieces to make their move
  */
@@ -283,10 +305,17 @@ public class Metro {
      */
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
-        return false;
 
-
+        // check overlap
+        String placementPosition = placementSequence.replaceAll("([a-z])", "");
+        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
+        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
+        if (position.size() != uniquePosition.size()) {
+            return false;
+        }
+        return true;
     }
+
 
     /**
      * Task 7
