@@ -93,6 +93,7 @@ public class Metro {
         } else return false;
         return true;
     }
+
 //  Method 2
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
