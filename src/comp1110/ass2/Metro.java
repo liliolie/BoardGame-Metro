@@ -7,31 +7,19 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Add UI interaction features on Viewer.java to improve gaming experience
+ *
+ * Build up a touchable function for moving tiles and drag&release
+ * set up Hotkey on keyboard for rotation and change tiles
+ * Insert music and play the sound when user interact with our UI
+ * Support higher resolution
+ */
 
 /**
  * Difficulty level slider
- * <p>
+ *
  * the player will choose difficulty level from level 1 to level 3
- * <p>
- * The number of opponents slider
- * <p>
- * the player will choose opponents number from 1 to 5
- * <p>
- * Add a method to display potential moves
- * <p>
- * when it is player's turn
- * display all of the valid moves as partially transparent pieces
- * the player click one of the partially transparent pieces to make their move
- * <p>
- * message on completion
- * <p>
- * Add a method to choose a given difficulty level
- * <p>
- * The method should select a difficulty level from the level 1 to level 3
- * <p>
- * Construct a game for a given level of difficulty, given number of players
- * <p>
- * This create a new instance of the game at the given level of difficulty and number of players
  */
 
 /**
@@ -53,9 +41,9 @@ import java.util.stream.Stream;
  */
 
 /**
- * Add a method to choose a given difficulty level
+ * Add a method to define difficulty levels
  *
- * The method should select a difficulty level from the level 1 to level 3
+ * The method should include difficulty level from the level 1 to level 3
  */
 
 /**
