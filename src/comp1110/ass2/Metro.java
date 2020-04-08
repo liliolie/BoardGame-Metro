@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  * Add UI interaction features on Viewer.java to improve gaming experience
  *
  * Build up a touchable function for moving tiles and drag&release
- * set up Hotkey on keyboard for rotation and change tiles
+ * set up Hotkey on a keyboard for rotation and change tiles
  * Insert music and play the sound when user interact with our UI
  * Support higher resolution
  */
@@ -31,8 +31,8 @@ import java.util.stream.Stream;
 /**
  * Add a method to display potential moves
  *
- * when it is player's turn
- * display all of the valid moves as partially transparent pieces
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
  * the player click one of the partially transparent pieces to make their move
  */
 
@@ -49,14 +49,14 @@ import java.util.stream.Stream;
 /**
  * Construct a game for a given level of difficulty, given number of players
  *
- * This create a new instance of the game at the given level of difficulty and number of players
+ * This creates a new instance of the game at the given level of difficulty and number of players
  */
 
 /**
  * Add a method to detect if the game is over
  *
  * Given a placement sequence string, detect when game is over
- * when all the pieces been placed, The games is over
+ * when all the pieces have been placed, The games is over
  * @return return true when game is over
  * public static boolean isGameOver(String placementSequence,String hand) {
  *     return true;
@@ -78,30 +78,28 @@ public class Metro {
      * @return True if this string is well-formed
      */
     public static boolean isPiecePlacementWellFormed(String piecePlacement) {
+        // FIXME Task 2: determine whether a piece placement is well-formed
 //  Method 1
-        if (piecePlacement.length() == 6) {
-            for (int i = 0; i < piecePlacement.length() - 2; i++) {
-                if (!(piecePlacement.charAt(i) >= 'a' && piecePlacement.charAt(i) <= 'd')) {
-                    return false;
-                }
-            }
-            for (int i = 4; i < piecePlacement.length(); i++) {
-                if (!(piecePlacement.charAt(i) >= '0' && piecePlacement.charAt(i) <= '7')) {
-                    return false;
-                }
-            }
-        } else return false;
-        return true;
+        return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
     }
 //  Method 2
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
 //        return matcher.matches();
-
 //  Method 3
-//        return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
-//    }
-    // FIXME Task 2: determine whether a piece placement is well-formed
+//        if (piecePlacement.length() == 6) {
+//            for (int i = 0; i < piecePlacement.length() - 2; i++) {
+//                if (!(piecePlacement.charAt(i) >= 'a' && piecePlacement.charAt(i) <= 'd')) {
+//                    return false;
+//                }
+//            }
+//            for (int i = 4; i < piecePlacement.length(); i++) {
+//                if (!(piecePlacement.charAt(i) >= '0' && piecePlacement.charAt(i) <= '7')) {
+//                    return false;
+//                }
+//            }
+//        } else return false;
+//        return true;
 
 
     /**
@@ -118,74 +116,94 @@ public class Metro {
      * @return true if this placement sequence is well-formed
      */
     public static boolean isPlacementSequenceWellFormed(String placement) {
-        //count how many times the substring appears in the larger string
-
-
-        String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
-        int[] num = {0, 0, 0, 0, 0};
-
-        for (int i = 0; i < list0.length; i++) {
-
-            Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
-
-            while (matcher.find()) {
-                num[i]++;
-
+        // FIXME Task 3: determine whether a placement sequence is well-formed
+//  Method 1
+        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
+        int cbcb = 0; int bcbc = 0;
+        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
+        if (placement.length() == 0) return true;
+        else if (placement.length() % 6 != 0 || placement.length() > 360) return false;
+        for (int i = 0; i < placement.length() - 6; i += 6){
+            if (isPiecePlacementWellFormed(placement.substring(i, i + 6))) {
+                if (placement.substring(i, i + 4).equals("aacb")) aacb++;
+                if (placement.substring(i, i + 4).equals("cbaa")) cbaa++;
+                if (placement.substring(i, i + 4).equals("acba")) acba++;
+                if (placement.substring(i, i + 4).equals("baac")) baac++;
+                if (placement.substring(i, i + 4).equals("aaaa")) aaaa++;
+                if (placement.substring(i, i + 4).equals("cbcb")) cbcb++;
+                if (placement.substring(i, i + 4).equals("bcbc")) bcbc++;
+                if (placement.substring(i, i + 4).equals("cccc")) cccc++;
+                if (placement.substring(i, i + 4).equals("bbbb")) bbbb++;
+                if (placement.substring(i, i + 4).equals("dacc")) dacc++;
+                if (placement.substring(i, i + 4).equals("cdac")) cdac++;
+                if (placement.substring(i, i + 4).equals("ccda")) ccda++;
+                if (placement.substring(i, i + 4).equals("accd")) accd++;
+                if (placement.substring(i, i + 4).equals("dbba")) dbba++;
+                if (placement.substring(i, i + 4).equals("adbb")) adbb++;
+                if (placement.substring(i, i + 4).equals("badb")) badb++;
+                if (placement.substring(i, i + 4).equals("bbad")) bbad++;
+                if (placement.substring(i, i + 4).equals("ddbc")) ddbc++;
+                if (placement.substring(i, i + 4).equals("cddb")) cddb++;
+                if (placement.substring(i, i + 4).equals("bcdd")) bcdd++;
+                if (placement.substring(i, i + 4).equals("dbcd")) dbcd++;
+                if (placement.substring(i, i + 4).equals("adad")) adad++;
+                if (placement.substring(i, i + 4).equals("dada")) dada++;
+                if (placement.substring(i, i + 4).equals("dddd")) dddd++;
             }
+            else return false;
         }
-
-        String[] list1 = {"cbcb", "bcbc"};
-        int[] num1 = {0, 0};
-
-        for (int i = 0; i < list1.length; i++) {
-
-            Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
-
-            while (matcher.find()) {
-                num1[i]++;
-            }
-        }
-
-        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"};
-        int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-        for (int i = 0; i < list2.length; i++) {
-
-            Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
-
-            while (matcher.find()) {
-                num2[i]++;
-            }
-        }
-
-        List<Integer> intList = new ArrayList<Integer>(num.length);
-        for (int i : num) {
-            intList.add(i);
-        }
-        List<Integer> intList1 = new ArrayList<Integer>(num1.length);
-        for (int i : num1) {
-            intList1.add(i);
-        }
-        List<Integer> intList2 = new ArrayList<Integer>(num2.length);
-        for (int i : num2) {
-            intList2.add(i);
-        }
-
-        if (placement.length() % 6 == 0) {
-            for (int i = 0; i < placement.length(); i += 6) {
-                String substring = placement.substring(i, i += 6);
-                if (!(isPiecePlacementWellFormed(substring))) {
-                    return false;
-                }
-            }
-        } else return false;
-        if (Collections.max(intList).compareTo(4) > 0 || Collections.max(intList1).compareTo(3) > 0 || Collections.max(intList2).compareTo(2) > 0) {
-            return false;
-        }
-        return true;
+        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
+//  Method 2
+        // Count how many times the substring appears in the larger string
+//        String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
+//        int[] num = {0, 0, 0, 0, 0};
+//        for (int i = 0; i < list0.length; i++) {
+//            Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
+//            while (matcher.find()) {
+//                num[i]++;
+//            }
+//        }
+//        String[] list1 = {"cbcb", "bcbc"};
+//        int[] num1 = {0, 0};
+//        for (int i = 0; i < list1.length; i++) {
+//            Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
+//            while (matcher.find()) {
+//                num1[i]++;
+//            }
+//        }
+//        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"};
+//        int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+//        for (int i = 0; i < list2.length; i++) {
+//            Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
+//            while (matcher.find()) {
+//                num2[i]++;
+//            }
+//        }
+//        List<Integer> intList0 = new ArrayList<Integer>(num.length);
+//        for (int i : num) {
+//            intList0.add(i);
+//        }
+//        List<Integer> intList1 = new ArrayList<Integer>(num1.length);
+//        for (int i : num1) {
+//            intList1.add(i);
+//        }
+//        List<Integer> intList2 = new ArrayList<Integer>(num2.length);
+//        for (int i : num2) {
+//            intList2.add(i);
+//        }
+//        if (placement.length() % 6 == 0) {
+//            for (int i = 0; i < placement.length(); i += 6) {
+//                String substring = placement.substring(i, i += 6);
+//                if (!(isPiecePlacementWellFormed(substring))) {
+//                    return false;
+//                }
+//            }
+//        } else return false;
+//        if (Collections.max(intList0).compareTo(4) > 0 || Collections.max(intList1).compareTo(3) > 0 || Collections.max(intList2).compareTo(2) > 0) {
+//            return false;
+//        }
+//        return true;
     }
-
-    // FIXME Task 3: determine whether a placement sequence is well-formed
 
     /**
      * Task 5
@@ -198,78 +216,64 @@ public class Metro {
      * @return a random tile from the deck
      */
     public static String drawFromDeck(String placementSequence, String totalHands) {
-
-        // create total tiles list
+        // FIXME Task 5: draw a random tile from the deck
+        // Create total tiles list
         List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
         List<String> list1 = Arrays.asList("cbcb", "bcbc");
         List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
-
         List<String> repeatList0 = new ArrayList<>();
         List<String> repeatList1 = new ArrayList<>();
         List<String> repeatList2 = new ArrayList<>();
-
         int indexOfList0 = 0;
         int indexOfList1 = 0;
         int indexOfList2 = 0;
-
         for (int i = 1; i < list0.size() * 4 + 1; i++) {
             repeatList0.add(list0.get(indexOfList0++));
             if (indexOfList0 == list0.size()) {
                 indexOfList0 = 0;
             }
         }
-
         for (int i = 1; i < list1.size() * 3 + 1; i++) {
             repeatList1.add(list1.get(indexOfList1++));
             if (indexOfList1 == list1.size()) {
                 indexOfList1 = 0;
             }
         }
-
         for (int i = 1; i < list2.size() * 2 + 1; i++) {
             repeatList2.add(list2.get(indexOfList2++));
             if (indexOfList2 == list2.size()) {
                 indexOfList2 = 0;
             }
         }
-
         List<String> joinedList = new ArrayList<>();
         Stream.of(repeatList0, repeatList1, repeatList2).forEach(joinedList::addAll);
         String[] allTiles = joinedList.toArray(new String[0]);
-
-        //remove the tile been placed
-        for (int i = 0; i < allTiles.length; i++) {
-            Matcher matcher = Pattern.compile(allTiles[i]).matcher(placementSequence);
+        // Remove the tile been placed
+        for (String allTile : allTiles) {
+            Matcher matcher = Pattern.compile(allTile).matcher(placementSequence);
             while (matcher.find()) {
-                joinedList.remove(allTiles[i]);
-                placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTiles[i])) + placementSequence.substring(placementSequence.indexOf(allTiles[i]) + 6);
+                joinedList.remove(allTile);
+                placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTile)) + placementSequence.substring(placementSequence.indexOf(allTile) + 6);
             }
         }
-
-        // remove the tiles in all hands
+        // Remove the tiles in all hands
         char separator = '_';
         StringBuilder totalHands1 = new StringBuilder(totalHands);
         for (int i = 0; i < totalHands.length() / 4; i++) {
             totalHands1.insert(((i + 1) * 4) + i, separator);
         }
         String totalHandsNew = totalHands1.toString();
-
-        for (int i = 0; i < allTiles.length; i++) {
-            Matcher matcher1 = Pattern.compile(allTiles[i]).matcher(totalHandsNew);
+        for (String allTile : allTiles) {
+            Matcher matcher1 = Pattern.compile(allTile).matcher(totalHandsNew);
             while (matcher1.find()) {
-                joinedList.remove(allTiles[i]);
-                totalHandsNew = totalHandsNew.substring(0, totalHandsNew.indexOf(allTiles[i])) + totalHandsNew.substring(totalHandsNew.indexOf(allTiles[i]) + 4);
+                joinedList.remove(allTile);
+                totalHandsNew = totalHandsNew.substring(0, totalHandsNew.indexOf(allTile)) + totalHandsNew.substring(totalHandsNew.indexOf(allTile) + 4);
             }
         }
-
-        //random a tile from the leftover list
+        //Random a tile from the leftover list
         int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
-        String randTile = joinedList.get(randIndex);
-
-        return randTile;
+        return joinedList.get(randIndex);
     }
-
-    // FIXME Task 5: draw a random tile from the deck
 
 
     // check tails been placed
@@ -293,15 +297,11 @@ public class Metro {
      */
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
-
-        // check overlap
+        // Check overlap
         String placementPosition = placementSequence.replaceAll("([a-z])", "");
         List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
         List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
-        if (position.size() != uniquePosition.size()) {
-            return false;
-        }
-        return true;
+        return position.size() == uniquePosition.size();
     }
 
 
