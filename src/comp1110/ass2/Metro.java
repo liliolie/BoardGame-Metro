@@ -1,6 +1,8 @@
 package comp1110.ass2;
 
 
+import comp1110.ass2.gittest.A;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -128,91 +130,81 @@ public class Metro {
     public static boolean isPlacementSequenceWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement sequence is well-formed
 //  Method 1
-        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
-        int cbcb = 0; int bcbc = 0;
-        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
-        if (placement.length() == 0) return true;
-        else if (placement.length() % 6 != 0 || placement.length() > 360) return false;
-        for (int i = 0; i < placement.length() - 6; i += 6){
-            if (isPiecePlacementWellFormed(placement.substring(i, i + 6))) {
-                if (placement.substring(i, i + 4).equals("aacb")) aacb++;
-                if (placement.substring(i, i + 4).equals("cbaa")) cbaa++;
-                if (placement.substring(i, i + 4).equals("acba")) acba++;
-                if (placement.substring(i, i + 4).equals("baac")) baac++;
-                if (placement.substring(i, i + 4).equals("aaaa")) aaaa++;
-                if (placement.substring(i, i + 4).equals("cbcb")) cbcb++;
-                if (placement.substring(i, i + 4).equals("bcbc")) bcbc++;
-                if (placement.substring(i, i + 4).equals("cccc")) cccc++;
-                if (placement.substring(i, i + 4).equals("bbbb")) bbbb++;
-                if (placement.substring(i, i + 4).equals("dacc")) dacc++;
-                if (placement.substring(i, i + 4).equals("cdac")) cdac++;
-                if (placement.substring(i, i + 4).equals("ccda")) ccda++;
-                if (placement.substring(i, i + 4).equals("accd")) accd++;
-                if (placement.substring(i, i + 4).equals("dbba")) dbba++;
-                if (placement.substring(i, i + 4).equals("adbb")) adbb++;
-                if (placement.substring(i, i + 4).equals("badb")) badb++;
-                if (placement.substring(i, i + 4).equals("bbad")) bbad++;
-                if (placement.substring(i, i + 4).equals("ddbc")) ddbc++;
-                if (placement.substring(i, i + 4).equals("cddb")) cddb++;
-                if (placement.substring(i, i + 4).equals("bcdd")) bcdd++;
-                if (placement.substring(i, i + 4).equals("dbcd")) dbcd++;
-                if (placement.substring(i, i + 4).equals("adad")) adad++;
-                if (placement.substring(i, i + 4).equals("dada")) dada++;
-                if (placement.substring(i, i + 4).equals("dddd")) dddd++;
-            }
-            else return false;
-        }
-        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
+//        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
+//        int cbcb = 0; int bcbc = 0;
+//        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
+//        if (placement.length() == 0) return true;
+//        else if (placement.length() % 6 != 0 || placement.length() > 360) return false;
+//        for (int i = 0; i < placement.length() - 6; i += 6){
+//            if (isPiecePlacementWellFormed(placement.substring(i, i + 6))) {
+//                if (placement.substring(i, i + 4).equals("aacb")) aacb++;
+//                if (placement.substring(i, i + 4).equals("cbaa")) cbaa++;
+//                if (placement.substring(i, i + 4).equals("acba")) acba++;
+//                if (placement.substring(i, i + 4).equals("baac")) baac++;
+//                if (placement.substring(i, i + 4).equals("aaaa")) aaaa++;
+//                if (placement.substring(i, i + 4).equals("cbcb")) cbcb++;
+//                if (placement.substring(i, i + 4).equals("bcbc")) bcbc++;
+//                if (placement.substring(i, i + 4).equals("cccc")) cccc++;
+//                if (placement.substring(i, i + 4).equals("bbbb")) bbbb++;
+//                if (placement.substring(i, i + 4).equals("dacc")) dacc++;
+//                if (placement.substring(i, i + 4).equals("cdac")) cdac++;
+//                if (placement.substring(i, i + 4).equals("ccda")) ccda++;
+//                if (placement.substring(i, i + 4).equals("accd")) accd++;
+//                if (placement.substring(i, i + 4).equals("dbba")) dbba++;
+//                if (placement.substring(i, i + 4).equals("adbb")) adbb++;
+//                if (placement.substring(i, i + 4).equals("badb")) badb++;
+//                if (placement.substring(i, i + 4).equals("bbad")) bbad++;
+//                if (placement.substring(i, i + 4).equals("ddbc")) ddbc++;
+//                if (placement.substring(i, i + 4).equals("cddb")) cddb++;
+//                if (placement.substring(i, i + 4).equals("bcdd")) bcdd++;
+//                if (placement.substring(i, i + 4).equals("dbcd")) dbcd++;
+//                if (placement.substring(i, i + 4).equals("adad")) adad++;
+//                if (placement.substring(i, i + 4).equals("dada")) dada++;
+//                if (placement.substring(i, i + 4).equals("dddd")) dddd++;
+//            }
+//            else return false;
+//        }
+//        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
 //  Method 2
         // Count how many times the substring appears in the larger string
-//        String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
-//        int[] num = {0, 0, 0, 0, 0};
-//        for (int i = 0; i < list0.length; i++) {
-//            Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
-//            while (matcher.find()) {
-//                num[i]++;
-//            }
-//        }
-//        String[] list1 = {"cbcb", "bcbc"};
-//        int[] num1 = {0, 0};
-//        for (int i = 0; i < list1.length; i++) {
-//            Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
-//            while (matcher.find()) {
-//                num1[i]++;
-//            }
-//        }
-//        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"};
-//        int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-//        for (int i = 0; i < list2.length; i++) {
-//            Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
-//            while (matcher.find()) {
-//                num2[i]++;
-//            }
-//        }
-//        List<Integer> intList0 = new ArrayList<Integer>(num.length);
-//        for (int i : num) {
-//            intList0.add(i);
-//        }
-//        List<Integer> intList1 = new ArrayList<Integer>(num1.length);
-//        for (int i : num1) {
-//            intList1.add(i);
-//        }
-//        List<Integer> intList2 = new ArrayList<Integer>(num2.length);
-//        for (int i : num2) {
-//            intList2.add(i);
-//        }
-//        if (placement.length() % 6 == 0) {
-//            for (int i = 0; i < placement.length(); i += 6) {
-//                String substring = placement.substring(i, i += 6);
-//                if (!(isPiecePlacementWellFormed(substring))) {
-//                    return false;
-//                }
-//            }
-//        } else return false;
-//        if (Collections.max(intList0).compareTo(4) > 0 || Collections.max(intList1).compareTo(3) > 0 || Collections.max(intList2).compareTo(2) > 0) {
-//            return false;
-//        }
-//        return true;
+        String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
+        List<Integer> intList0 = new ArrayList<>(5);
+        int[] num = {0, 0, 0, 0, 0};
+        for (int i = 0; i < list0.length; i++) {
+            Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
+            while (matcher.find()) {
+                num[i]++;
+            }
+            intList0.add(num[i]);
+        }
+        String[] list1 = {"cbcb", "bcbc"};
+        List<Integer> intList1 = new ArrayList<>(2);
+        int[] num1 = {0, 0};
+        for (int i = 0; i < list1.length; i++) {
+            Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
+            while (matcher.find()) {
+                num1[i]++;
+            }
+            intList1.add(num1[i]);
+        }
+        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"};
+        List<Integer> intList2 = new ArrayList<>(17);
+        int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        for (int i = 0; i < list2.length; i++) {
+            Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
+            while (matcher.find()) {
+                num2[i]++;
+            }
+            intList2.add(num2[i]);
+        }
+        if (placement.length() % 6 == 0) {
+            for (int i = 0; i < placement.length() - 6; i += 6) {
+                if (!(isPiecePlacementWellFormed(placement.substring(i, i + 6)))) {
+                    return false;
+                }
+            }
+        } else return false;
+        return Collections.max(intList0).compareTo(4) <= 0 && Collections.max(intList1).compareTo(3) <= 0 && Collections.max(intList2).compareTo(2) <= 0;
     }
 
     /**
@@ -227,68 +219,101 @@ public class Metro {
      */
     public static String drawFromDeck(String placementSequence, String totalHands) {
         // FIXME Task 5: draw a random tile from the deck
-        // Create total tiles list
-        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
-        List<String> list1 = Arrays.asList("cbcb", "bcbc");
-        List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
-        List<String> repeatList0 = new ArrayList<>();
-        List<String> repeatList1 = new ArrayList<>();
-        List<String> repeatList2 = new ArrayList<>();
-        int indexOfList0 = 0;
-        int indexOfList1 = 0;
-        int indexOfList2 = 0;
-        for (int i = 1; i < list0.size() * 4 + 1; i++) {
-            repeatList0.add(list0.get(indexOfList0++));
-            if (indexOfList0 == list0.size()) {
-                indexOfList0 = 0;
+    // Method 1
+        List<String> list00 = new ArrayList<>(Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"));
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++) {
+                list00.add(list00.get(i));
             }
         }
-        for (int i = 1; i < list1.size() * 3 + 1; i++) {
-            repeatList1.add(list1.get(indexOfList1++));
-            if (indexOfList1 == list1.size()) {
-                indexOfList1 = 0;
+        List<String> list01 = new ArrayList<>(Arrays.asList("cbcb", "bcbc"));
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                list01.add(list01.get(i));
             }
         }
-        for (int i = 1; i < list2.size() * 2 + 1; i++) {
-            repeatList2.add(list2.get(indexOfList2++));
-            if (indexOfList2 == list2.size()) {
-                indexOfList2 = 0;
-            }
+        List<String> list02 = new ArrayList<>(Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"));
+        for (int i = 0; i < 17; i++) {
+            list02.add(list02.get(i));
         }
         List<String> joinedList = new ArrayList<>();
-        Stream.of(repeatList0, repeatList1, repeatList2).forEach(joinedList::addAll);
-        String[] allTiles = joinedList.toArray(new String[0]);
-        // Remove the tile been placed
-        for (String allTile : allTiles) {
-            Matcher matcher = Pattern.compile(allTile).matcher(placementSequence);
-            while (matcher.find()) {
-                joinedList.remove(allTile);
-                placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTile)) + placementSequence.substring(placementSequence.indexOf(allTile) + 6);
+        joinedList.addAll(list00);
+        joinedList.addAll(list01);
+        joinedList.addAll(list02);
+        if (placementSequence.length() == 0) {
+        } else {
+            for (int i = 0; i <= placementSequence.length() - 6; i += 6) {
+                joinedList.remove(placementSequence.substring(i, i + 4));
             }
         }
-        // Remove the tiles in all hands
-        char separator = '_';
-        StringBuilder totalHands1 = new StringBuilder(totalHands);
-        for (int i = 0; i < totalHands.length() / 4; i++) {
-            totalHands1.insert(((i + 1) * 4) + i, separator);
-        }
-        String totalHandsNew = totalHands1.toString();
-        for (String allTile : allTiles) {
-            Matcher matcher1 = Pattern.compile(allTile).matcher(totalHandsNew);
-            while (matcher1.find()) {
-                joinedList.remove(allTile);
-                totalHandsNew = totalHandsNew.substring(0, totalHandsNew.indexOf(allTile)) + totalHandsNew.substring(totalHandsNew.indexOf(allTile) + 4);
+        if (totalHands.length() == 0) {
+        } else {
+            for (int i = 0; i <= totalHands.length() - 4; i += 4) {
+                joinedList.remove(totalHands.substring(i, i + 4));
             }
         }
-        //Random a tile from the leftover list
-        int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
-        return joinedList.get(randIndex);
+        Random rand = new Random();
+        int index = rand.nextInt(joinedList.size());
+        return joinedList.get(index);
     }
-
-
-    // check tails been placed
-    // leftover
-    // Random a tail form the deck
+    //  Method 2
+        // Create total tiles list
+//        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
+//        List<String> list1 = Arrays.asList("cbcb", "bcbc");
+//        List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
+//        List<String> repeatList0 = new ArrayList<>();
+//        List<String> repeatList1 = new ArrayList<>();
+//        List<String> repeatList2 = new ArrayList<>();
+//        int indexOfList0 = 0;
+//        int indexOfList1 = 0;
+//        int indexOfList2 = 0;
+//        for (int i = 1; i <= list0.size() * 4; i++) {
+//            repeatList0.add(list0.get(indexOfList0++));
+//            if (indexOfList0 == list0.size()) {
+//                indexOfList0 = 0;
+//            }
+//        }
+//        for (int i = 1; i <= list1.size() * 3; i++) {
+//            repeatList1.add(list1.get(indexOfList1++));
+//            if (indexOfList1 == list1.size()) {
+//                indexOfList1 = 0;
+//            }
+//        }
+//        for (int i = 1; i <= list2.size() * 2; i++) {
+//            repeatList2.add(list2.get(indexOfList2++));
+//            if (indexOfList2 == list2.size()) {
+//                indexOfList2 = 0;
+//            }
+//        }
+//        List<String> joinedList = new ArrayList<>();
+//        Stream.of(list00, list01, list02).forEach(joinedList::addAll);
+//        String[] allTiles = joinedList.toArray(new String[0]);
+//        // Remove the tile been placed
+//        for (String allTile : allTiles) {
+//            Matcher matcher = Pattern.compile(allTile).matcher(placementSequence);
+//            while (matcher.find()) {
+//                joinedList.remove(allTile);
+//                placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTile)) + placementSequence.substring(placementSequence.indexOf(allTile) + 6);
+//            }
+//        }
+//        // Remove the tiles in all hands
+//        char separator = '_';
+//        StringBuilder totalHands1 = new StringBuilder(totalHands);
+//        for (int i = 0; i < totalHands.length() / 4; i++) {
+//            totalHands1.insert(((i + 1) * 4) + i, separator);
+//        }
+//        String totalHandsNew = totalHands1.toString();
+//        for (String allTile : allTiles) {
+//            Matcher matcher1 = Pattern.compile(allTile).matcher(totalHandsNew);
+//            while (matcher1.find()) {
+//                joinedList.remove(allTile);
+//                totalHandsNew = totalHandsNew.substring(0, totalHandsNew.indexOf(allTile)) + totalHandsNew.substring(totalHandsNew.indexOf(allTile) + 4);
+//            }
+//        }
+//        //Random a tile from the leftover list
+//        int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
+//        return joinedList.get(randIndex);
+//    }
 
     /**
      * Task 6
@@ -325,7 +350,8 @@ public class Metro {
      */
     public static int[] getScore(String placementSequence, int numberOfPlayers) {
         // FIXME Task 7: determine the current score for the game
-        int res[] = new int[numberOfPlayers], s[] = new int[32];
+        int[] res = new int[numberOfPlayers];
+        int[] s = new int[32];
         String str;
         for (int l = placementSequence.length(), next, row, col, t, j, i = 0; i < 32; i++) {
             t = 0;
@@ -353,7 +379,7 @@ public class Metro {
                         str = placementSequence.substring(j, j + 4);
                         break;
                     }
-                if (str == "") break;
+                if (str.equals("")) break;
                 next = getNextExit(str, next);
                 if (next != -1) {
                     t++;
