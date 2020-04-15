@@ -427,7 +427,6 @@ public class Metro {
         if (placementSequence.equals(SAMPLE_START)) res[1]--;
         return res;
     }
-
     private static int getNextExit(String tile, int entry) {
         if (entry % 2 == 0)
             switch (tile.charAt(entry / 2)) {
