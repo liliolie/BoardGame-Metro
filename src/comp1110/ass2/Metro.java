@@ -93,7 +93,6 @@ public class Metro {
         } else return false;
         return true;
     }
-
 //  Method 2
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
@@ -126,9 +125,12 @@ public class Metro {
         int[] num = {0, 0, 0, 0, 0};
 
         for (int i = 0; i < list0.length; i++) {
+
             Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
+
             while (matcher.find()) {
                 num[i]++;
+
             }
         }
 
@@ -136,7 +138,9 @@ public class Metro {
         int[] num1 = {0, 0};
 
         for (int i = 0; i < list1.length; i++) {
+
             Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
+
             while (matcher.find()) {
                 num1[i]++;
             }
@@ -146,7 +150,9 @@ public class Metro {
         int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         for (int i = 0; i < list2.length; i++) {
+
             Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
+
             while (matcher.find()) {
                 num2[i]++;
             }
@@ -231,7 +237,7 @@ public class Metro {
         Stream.of(repeatList0, repeatList1, repeatList2).forEach(joinedList::addAll);
         String[] allTiles = joinedList.toArray(new String[0]);
 
-        // remove the tile been placed
+        //remove the tile been placed
         for (int i = 0; i < allTiles.length; i++) {
             Matcher matcher = Pattern.compile(allTiles[i]).matcher(placementSequence);
             while (matcher.find()) {
@@ -256,7 +262,7 @@ public class Metro {
             }
         }
 
-        // random a tile from the leftover list
+        //random a tile from the leftover list
         int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
         String randTile = joinedList.get(randIndex);
 
@@ -265,6 +271,10 @@ public class Metro {
 
     // FIXME Task 5: draw a random tile from the deck
 
+
+    // check tails been placed
+    // leftover
+    // Random a tail form the deck
 
     /**
      * Task 6
@@ -288,12 +298,12 @@ public class Metro {
         String placementPosition = placementSequence.replaceAll("([a-z])", "");
         List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
         List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
-
         if (position.size() != uniquePosition.size()) {
             return false;
         }
         return true;
     }
+
 
     /**
      * Task 7
