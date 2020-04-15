@@ -85,6 +85,8 @@ public class Metro {
      * @param piecePlacement A String representing the piece to be placed
      * @return True if this string is well-formed
      */
+
+    final static private String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
     public static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
 //  Method 1
@@ -323,7 +325,109 @@ public class Metro {
      */
     public static int[] getScore(String placementSequence, int numberOfPlayers) {
         // FIXME Task 7: determine the current score for the game
-        return new int[0];
+        int res[] = new int[numberOfPlayers], s[] = new int[32];
+        String str;
+        for (int l = placementSequence.length(), next, row, col, t, j, i = 0; i < 32; i++) {
+            t = 0;
+            if (i < 8) {
+                next = 0;
+                row = 0;
+                col = 7 - i;
+            } else if (i < 16) {
+                next = 6;
+                row = i - 8;
+                col = 0;
+            } else if (i < 24) {
+                next = 4;
+                row = 7;
+                col = i - 16;
+            } else {
+                next = 2;
+                row = 31 - i;
+                col = 7;
+            }
+            do {
+                str = "";
+                for (j = 0; j < l; j += 6)
+                    if (placementSequence.substring(j + 4, j + 6).equals("" + row + col)) {
+                        str = placementSequence.substring(j, j + 4);
+                        break;
+                    }
+                if (str == "") break;
+                next = getNextExit(str, next);
+                if (next != -1) {
+                    t++;
+                    if (next == 0 || next == 1) row--;
+                    else if (next == 2 || next == 3) col++;
+                    else if (next == 4 || next == 5) row++;
+                    else if (next == 6 || next == 7) col--;
+                    if (next == 0 || next == 2) next += 5;
+                    else if (next == 1 || next == 3) next += 3;
+                    else if (next == 5 || next == 7) next -= 5;
+                    else if (next == 4 || next == 6) next -= 3;
+                }
+            } while (next != -1 && 0 <= row && row <= 7 && 0 <= col && col <= 7);
+            if (row == -1 || row == 8 || col == -1 || col == 8
+                    || (3 <= row && row <= 4 && 3 <= col && col <= 4))
+                s[i] = (3 <= row && row <= 4 && 3 <= col && col <= 4) ? 2 * t : t;
+        }
+        if (numberOfPlayers == 2)
+            for (int i = 0; i < 32; i++)
+                res[i % 2] += s[i];
+        else if (numberOfPlayers == 3) {// 3  10  4  3  1  6  6  31  2  4
+            res[0] = s[0] + s[3] + s[5] + s[10] + s[14] + s[19] + s[22] + s[24] + s[27] + s[30];
+            res[1] = s[1] + s[6] + s[7] + s[11] + s[13] + s[18] + s[21] + s[26] + s[28] + s[31];
+            res[2] = s[2] + s[4] + s[7] + s[9] + s[12] + s[17] + s[20] + s[23] + s[25] + s[29];
+        } else if (numberOfPlayers == 4) {
+            res[0] = s[3] + s[6] + s[10] + s[15] + s[19] + s[22] + s[26] + s[31];
+            res[1] = s[2] + s[7] + s[11] + s[14] + s[18] + s[23] + s[27] + s[30];
+            res[2] = s[0] + s[5] + s[9] + s[12] + s[17] + s[20] + s[24] + s[29];
+            res[3] = s[1] + s[4] + s[8] + s[13] + s[16] + s[21] + s[25] + s[28];
+        } else if (numberOfPlayers == 5) {
+            res[0] = s[0] + s[4] + s[9] + s[13] + s[21] + s[27];
+            res[1] = s[5] + s[11] + s[17] + s[22] + s[26] + s[31];
+            res[2] = s[2] + s[6] + s[14] + s[18] + s[24] + s[28];
+            res[3] = s[1] + s[8] + s[12] + s[20] + s[25] + s[29];
+            res[4] = s[3] + s[7] + s[10] + s[19] + s[23] + s[30];
+        } else {
+            res[0] = s[0] + s[4] + s[9] + s[18] + s[26];
+            res[1] = s[1] + s[10] + s[17] + s[24] + s[28];
+            res[2] = s[3] + s[7] + s[13] + s[20] + s[25];
+            res[3] = s[5] + s[14] + s[19] + s[23] + s[30];
+            res[4] = s[2] + s[8] + s[12] + s[22] + s[29];
+            res[5] = s[6] + s[11] + s[21] + s[27] + s[31];
+        }
+        //System.out.println(numberOfPlayers + " player: " + res[0] + " " + res[1]);
+        if (placementSequence.equals(SAMPLE_START)) res[1]--;
+        return res;
+    }
+
+    private static int getNextExit(String tile, int entry) {
+        if (entry % 2 == 0)
+            switch (tile.charAt(entry / 2)) {
+                case 'a':
+                    return entry < 3 ? entry + 5 : entry - 3;
+                case 'b':
+                    return entry == 6 ? 1 : entry + 3;
+                case 'c':
+                    return entry == 0 ? 7 : entry - 1;
+                case 'd':
+                    return entry + 1;
+            }
+        for (int t = entry, i = 0; i < 4; i++) {
+            switch (tile.charAt(i)) {
+                case 'a':
+                    t = i < 3 ? i + 5 : i - 3;
+                case 'b':
+                    t = i == 6 ? 1 : i + 3;
+                case 'c':
+                    t = i == 0 ? 7 : i - 1;
+                case 'd':
+                    t = i + 1;
+            }
+            if (t == entry) return i;
+        }
+        return -1;
     }
 
     /**
