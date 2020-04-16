@@ -2,6 +2,7 @@ package comp1110.ass2.gui;
 
 import comp1110.ass2.Metro;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -405,25 +407,37 @@ public class Game extends Application {
      * Create a basic text field for input and a refresh button.
      */
     private void makeControls() {
-        Label label1 = new Label("Press to start/restart game!");
+        Text label1 = new Text("Press R to restart game, Q to exit, have fun!");
         label1.setFont(Font.font("Timer New Roman",
                 FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
         label1.setLayoutX(160);
         label1.setLayoutY(VIEWER_HEIGHT - 74);
-        Button button = new Button("Start");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
+//        Button button = new Button("Start");
+//        button.setOnAction(e -> {
+//            makePlacement("");
+//            makeDraggableTiles();
+//            makeCounters();
+//        });
+//        button.setFont(Font.font("Timer New Roman",
+//                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 14));
+//        button.setLayoutX(405);
+//        button.setLayoutY(VIEWER_HEIGHT - 75);
+        controls.getChildren().add(label1);
+    }
+
+    private void setUpHotKeys(Scene scene) {
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.R) {
                 makePlacement("");
                 makeDraggableTiles();
                 makeCounters();
+                event.consume();
+            } else if (event.getCode() == KeyCode.Q) {
+                // exit game
+                Platform.exit();
+                event.consume();
             }
         });
-        button.setFont(Font.font("Timer New Roman",
-                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 14));
-        button.setLayoutX(405);
-        button.setLayoutY(VIEWER_HEIGHT - 75);
-        controls.getChildren().addAll(label1, button);
     }
 
     @Override
@@ -431,7 +445,7 @@ public class Game extends Application {
         primaryStage.setTitle("FocusGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
         root.getChildren().addAll(controls, draggable_tiles, tiles_counter);
-
+        setUpHotKeys(scene);
         makeControls();
         makeBoard();
         makeStations();
