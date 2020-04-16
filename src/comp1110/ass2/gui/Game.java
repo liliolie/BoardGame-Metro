@@ -432,7 +432,7 @@ public class Game extends Application {
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
         root.getChildren().addAll(controls, draggable_tiles, tiles_counter);
 
-        //makeControls();
+        makeControls();
         makeBoard();
         makeStations();
         makeDraggableTiles();
