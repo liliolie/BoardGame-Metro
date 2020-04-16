@@ -427,6 +427,7 @@ public class Game extends Application {
 
     private void setUpHotKeys(Scene scene) {
         scene.setOnKeyPressed(event -> {
+            //Q for exit, R for restart board
             if (event.getCode() == KeyCode.R) {
                 makePlacement("");
                 makeDraggableTiles();
