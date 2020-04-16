@@ -129,14 +129,14 @@ public class Metro {
 
     public static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
-//  Method 1
+        //  Method 1
         return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
     }
-//  Method 2
+        //  Method 2
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
 //        return matcher.matches();
-//  Method 3
+        //  Method 3
 //        if (piecePlacement.length() == 6) {
 //            for (int i = 0; i < piecePlacement.length() - 2; i++) {
 //                if (!(piecePlacement.charAt(i) >= 'a' && piecePlacement.charAt(i) <= 'd')) {
@@ -167,7 +167,7 @@ public class Metro {
      */
     public static boolean isPlacementSequenceWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement sequence is well-formed
-//  Method 1
+        //  Method 1
 //        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
 //        int cbcb = 0; int bcbc = 0;
 //        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
@@ -203,7 +203,7 @@ public class Metro {
 //            else return false;
 //        }
 //        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
-//  Method 2
+        //  Method 2
         // Count how many times the substring appears in the larger string
         String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
         List<Integer> intList0 = new ArrayList<>(5);
@@ -294,7 +294,7 @@ public class Metro {
         int index = rand.nextInt(joinedList.size());
         return joinedList.get(index);
     }
-    //  Method 2
+        //  Method 2
     // Create total tiles list
 //        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
 //        List<String> list1 = Arrays.asList("cbcb", "bcbc");
