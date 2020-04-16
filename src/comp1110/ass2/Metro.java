@@ -11,11 +11,44 @@ import java.util.stream.Stream;
 
 /**
  * Add UI interaction features on Viewer.java to improve gaming experience
- *
+ * <p>
  * Build up a touchable function for moving tiles and drag&release
  * set up Hotkey on a keyboard for rotation and change tiles
  * Insert music and play the sound when user interact with our UI
  * Support higher resolution
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ *
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
  */
 
 /**
@@ -74,6 +107,12 @@ import java.util.stream.Stream;
 
 
 public class Metro {
+    public final static List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"); //5
+    public final static List<String> list1 = Arrays.asList("cbcb", "bcbc"); //2
+    public final static List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda",
+            "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
+    private final static String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
+
     /**
      * Task 2
      * Determine whether a piece placement is well-formed. For a piece
@@ -88,7 +127,6 @@ public class Metro {
      * @return True if this string is well-formed
      */
 
-    final static private String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
     public static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
 //  Method 1
@@ -219,7 +257,7 @@ public class Metro {
      */
     public static String drawFromDeck(String placementSequence, String totalHands) {
         // FIXME Task 5: draw a random tile from the deck
-    // Method 1
+        // Method 1
         List<String> list00 = new ArrayList<>(Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"));
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
@@ -257,7 +295,7 @@ public class Metro {
         return joinedList.get(index);
     }
     //  Method 2
-        // Create total tiles list
+    // Create total tiles list
 //        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
 //        List<String> list1 = Arrays.asList("cbcb", "bcbc");
 //        List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
@@ -427,6 +465,7 @@ public class Metro {
         if (placementSequence.equals(SAMPLE_START)) res[1]--;
         return res;
     }
+
     private static int getNextExit(String tile, int entry) {
         if (entry % 2 == 0)
             switch (tile.charAt(entry / 2)) {
