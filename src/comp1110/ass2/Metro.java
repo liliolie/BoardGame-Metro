@@ -161,14 +161,14 @@ public class Metro {
 
     public static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
-//  Method 1
+        //  Method 1
         return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
     }
-//  Method 2
+        //  Method 2
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
 //        return matcher.matches();
-//  Method 3
+        //  Method 3
 //        if (piecePlacement.length() == 6) {
 //            for (int i = 0; i < piecePlacement.length() - 2; i++) {
 //                if (!(piecePlacement.charAt(i) >= 'a' && piecePlacement.charAt(i) <= 'd')) {
@@ -199,7 +199,7 @@ public class Metro {
      */
     public static boolean isPlacementSequenceWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement sequence is well-formed
-//  Method 1
+        //  Method 1
 //        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
 //        int cbcb = 0; int bcbc = 0;
 //        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
@@ -235,7 +235,7 @@ public class Metro {
 //            else return false;
 //        }
 //        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
-//  Method 2
+        //  Method 2
         // Count how many times the substring appears in the larger string
         String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
         List<Integer> intList0 = new ArrayList<>(5);
@@ -326,7 +326,7 @@ public class Metro {
         int index = rand.nextInt(joinedList.size());
         return joinedList.get(index);
     }
-    //  Method 2
+        //  Method 2
     // Create total tiles list
 //        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
 //        List<String> list1 = Arrays.asList("cbcb", "bcbc");
@@ -389,13 +389,15 @@ public class Metro {
      * Task 6
      * Determine if a given placement sequence follows the rules of the game.
      * These rules are:
-     * - All tracks on all placed pieces must eventually arrive at a station.
-     * - No piece can overlap another piece, or any of the central stations.
-     * - If a piece is on an edge of the board, it cannot contain a track that
-     * results in a station looping back to itself, UNLESS it is unavoidable.
-     * - If a piece is on a corner of the board, it cannot contain a track that
-     * links the two stations adjacent to that corner, UNLESS it is
-     * unavoidable.
+     * - No tile can overlap another tile, or any of the central stations.
+     * - A tile cannot be placed next to one of the central squares unless it
+     * continues or completes an existing track.
+     * - If a tile is on an edge of the board, it cannot contain a track that
+     * results in a station looping back to itself, UNLESS that tile could not
+     * have been placed elsewhere.
+     * - If a tile is on a corner of the board, it cannot contain a track that
+     * links the two stations adjacent to that corner, UNLESS that tile could
+     * not have been placed elsewhere.
      *
      * @param placementSequence A sequence of placements on the board.
      * @return Whether this placement string is valid.
@@ -403,10 +405,21 @@ public class Metro {
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
         // Check overlap
-        String placementPosition = placementSequence.replaceAll("([a-z])", "");
-        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
-        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
-        return position.size() == uniquePosition.size();
+//        String placementPosition = placementSequence.replaceAll("([a-z])", "");
+//        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
+//        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
+//        return position.size() == uniquePosition.size();
+        if (placementSequence.length() == 0) return true;
+        String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
+        String[] positionArray = placementPosition.split(",");
+        List<String> position = new ArrayList<>(Arrays.asList(positionArray));
+        for (int i = 0; i < position.size(); i++){
+            if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44")) return false;
+            for (int j = position.size() - 1; j > i; j--){
+                if (position.get(i).equals(position.get(j))) return false;
+            }
+        }
+        return true;
     }
 
 
