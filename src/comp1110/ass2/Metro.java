@@ -389,13 +389,15 @@ public class Metro {
      * Task 6
      * Determine if a given placement sequence follows the rules of the game.
      * These rules are:
-     * - All tracks on all placed pieces must eventually arrive at a station.
-     * - No piece can overlap another piece, or any of the central stations.
-     * - If a piece is on an edge of the board, it cannot contain a track that
-     * results in a station looping back to itself, UNLESS it is unavoidable.
-     * - If a piece is on a corner of the board, it cannot contain a track that
-     * links the two stations adjacent to that corner, UNLESS it is
-     * unavoidable.
+     * - No tile can overlap another tile, or any of the central stations.
+     * - A tile cannot be placed next to one of the central squares unless it
+     * continues or completes an existing track.
+     * - If a tile is on an edge of the board, it cannot contain a track that
+     * results in a station looping back to itself, UNLESS that tile could not
+     * have been placed elsewhere.
+     * - If a tile is on a corner of the board, it cannot contain a track that
+     * links the two stations adjacent to that corner, UNLESS that tile could
+     * not have been placed elsewhere.
      *
      * @param placementSequence A sequence of placements on the board.
      * @return Whether this placement string is valid.
@@ -403,10 +405,21 @@ public class Metro {
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
         // Check overlap
-        String placementPosition = placementSequence.replaceAll("([a-z])", "");
-        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
-        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
-        return position.size() == uniquePosition.size();
+//        String placementPosition = placementSequence.replaceAll("([a-z])", "");
+//        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
+//        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
+//        return position.size() == uniquePosition.size();
+        if (placementSequence.length() == 0) return true;
+        String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
+        String[] positionArray = placementPosition.split(",");
+        List<String> position = new ArrayList<>(Arrays.asList(positionArray));
+        for (int i = 0; i < position.size(); i++){
+            if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44")) return false;
+            for (int j = position.size() - 1; j > i; j--){
+                if (position.get(i).equals(position.get(j))) return false;
+            }
+        }
+        return true;
     }
 
 
