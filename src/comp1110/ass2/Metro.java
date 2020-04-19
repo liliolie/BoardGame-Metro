@@ -474,6 +474,18 @@ public class Metro {
                 if (tile.get(i).charAt(3) == 'd') {
                     a.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
                 }
+                if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c'){
+                    a.removeAll(Collections.singletonList(7));
+                }
+                if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b'){
+                    a.removeAll(Collections.singletonList(0));
+                }
+                if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(1) == '3'){
+                    a.removeAll(Collections.singletonList(70));
+                }
+                if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c'){
+                    a.removeAll(Collections.singletonList(77));
+                }
                 if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
                         (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
                         (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
