@@ -402,26 +402,114 @@ public class Metro {
      * @param placementSequence A sequence of placements on the board.
      * @return Whether this placement string is valid.
      */
-    public static boolean isPlacementSequenceValid(String placementSequence) {
-        // FIXME Task 6: determine whether a placement sequence is valid
-        // Check overlap
-//        String placementPosition = placementSequence.replaceAll("([a-z])", "");
-//        List<String> position = Arrays.asList(placementPosition.split("(?<=\\G..)"));
-//        List<String> uniquePosition = position.stream().distinct().collect(Collectors.toList());
-//        return position.size() == uniquePosition.size();
+    public static boolean firstStep(String placementSequence){
         if (placementSequence.length() == 0) return true;
         String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
         String[] positionArray = placementPosition.split(",");
+        String placementTile = placementSequence.replaceAll("([0-7][0-7])", ",");
+        String[] tileArray = placementTile.split(",");
         List<String> position = new ArrayList<>(Arrays.asList(positionArray));
+        position.remove("");
+        List<Integer> positionNum = new ArrayList<>();
+        for (String e : position){
+            positionNum.add(Integer.valueOf(e));
+        }
+        List<String> tile = new ArrayList<>(Arrays.asList(tileArray));
         for (int i = 0; i < position.size(); i++){
             if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44")) return false;
             for (int j = position.size() - 1; j > i; j--){
                 if (position.get(i).equals(position.get(j))) return false;
             }
+            if ((positionNum.get(i) >= 11 && positionNum.get(i) <= 16) || (positionNum.get(i) >= 21 && positionNum.get(i) <= 26) || (positionNum.get(i) >= 31 && positionNum.get(i) <= 36) ||
+                    (positionNum.get(i) >= 41 && positionNum.get(i) <= 46) || (positionNum.get(i) >= 51 && positionNum.get(i) <= 56) || (positionNum.get(i) >= 61 && positionNum.get(i) <= 66)){
+                if (!positionNum.contains(positionNum.get(i) + 1) && !positionNum.contains(positionNum.get(i) - 1) && !positionNum.contains(positionNum.get(i) + 10) &&
+                        !positionNum.contains(positionNum.get(i) - 10)) return false;
+            }
         }
         return true;
     }
-
+    public static boolean isPlacementSequenceValid(String placementSequence) {
+        // FIXME Task 6: determine whether a placement sequence is valid
+        String original = placementSequence;
+        while (placementSequence.startsWith("dddd") && (placementSequence.startsWith("00", 4) ||
+                placementSequence.startsWith("07", 4) ||
+                placementSequence.startsWith("70", 4) ||
+                placementSequence.startsWith("77", 4))) {
+            placementSequence = placementSequence.substring(6);
+        }
+        String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
+        String[] positionArray = placementPosition.split(",");
+        String placementTile = placementSequence.replaceAll("([0-7][0-7])", ",");
+        String[] tileArray = placementTile.split(",");
+        List<String> position = new ArrayList<>(Arrays.asList(positionArray));
+        position.remove("");
+        List<String> allPosition = new ArrayList<>(Arrays.asList("00", "01", "02", "03", "04", "05", "06", "07",
+                "10", "11", "12", "13", "14", "15", "16", "17",
+                "20", "21", "22", "23", "24", "25", "26", "27",
+                "30", "31", "32", "35", "36", "37",
+                "40", "41", "42", "45", "46", "47",
+                "50", "51", "52", "53", "54", "55", "56", "57",
+                "60", "61", "62", "63", "64", "65", "66", "67",
+                "70", "71", "72", "73", "74", "75", "76", "77"));
+        List<Integer> allPositionNum = new ArrayList<>();
+        for (String e : allPosition){
+            allPositionNum.add(Integer.valueOf(e));
+        }
+        List<String> tile = new ArrayList<>(Arrays.asList(tileArray));
+        if (!tile.get(0).equals("dddd")) {
+            for (int i = 0; i < position.size(); i++){
+                List<Integer> a = new ArrayList<>(List.copyOf(allPositionNum));
+                for(int j = 0; j < i; j++){
+                    a.remove(Integer.valueOf(position.get(j)));
+                }
+                if (tile.get(i).charAt(0) == 'd'){
+                    a.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
+                }
+                if (tile.get(i).charAt(1) == 'd') {
+                    a.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
+                }
+                if (tile.get(i).charAt(2) == 'd') {
+                    a.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
+                }
+                if (tile.get(i).charAt(3) == 'd') {
+                    a.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
+                }
+                if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
+                        (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
+                        (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
+                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0')) {
+                    if (a.size() > 0) return false;
+                }
+            }
+        }
+        if (tile.get(0).equals("dddd")) {
+            for (int i = 1; i < position.size(); i++){
+                List<Integer> a = new ArrayList<>(List.copyOf(allPositionNum));
+                for(int j = 0; j < i; j++){
+                    a.remove(Integer.valueOf(position.get(j)));
+                }
+                if (tile.get(i).charAt(0) == 'd'){
+                    a.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
+                }
+                if (tile.get(i).charAt(1) == 'd') {
+                    a.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
+                }
+                if (tile.get(i).charAt(2) == 'd') {
+                    a.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
+                }
+                if (tile.get(i).charAt(3) == 'd') {
+                    a.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
+                }
+                if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
+                        (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
+                        (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
+                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0')) {
+                    if (a.size() > 0) return false;
+                }
+            }
+        }
+        return firstStep(original);
+    }
 
     /**
      * Task 7
