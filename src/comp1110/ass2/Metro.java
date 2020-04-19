@@ -480,7 +480,7 @@ public class Metro {
                 if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b'){
                     a.removeAll(Collections.singletonList(0));
                 }
-                if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(1) == '3'){
+                if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c'){
                     a.removeAll(Collections.singletonList(70));
                 }
                 if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c'){
@@ -489,7 +489,11 @@ public class Metro {
                 if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
                         (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
                         (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
-                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0')) {
+                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0') ||
+                        (tile.get(i).charAt(0) == 'b' && position.get(i).equals("07")) || (tile.get(i).charAt(1) == 'c' && position.get(i).equals("07")) ||
+                        (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
+                        (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
+                        (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
                     if (a.size() > 0) return false;
                 }
             }
@@ -512,10 +516,26 @@ public class Metro {
                 if (tile.get(i).charAt(3) == 'd') {
                     a.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
                 }
+                if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c'){
+                    a.removeAll(Collections.singletonList(7));
+                }
+                if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b'){
+                    a.removeAll(Collections.singletonList(0));
+                }
+                if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c'){
+                    a.removeAll(Collections.singletonList(70));
+                }
+                if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c'){
+                    a.removeAll(Collections.singletonList(77));
+                }
                 if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
                         (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
                         (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
-                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0')) {
+                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0') ||
+                        (tile.get(i).charAt(0) == 'b' && position.get(i).equals("07")) || (tile.get(i).charAt(1) == 'c' && position.get(i).equals("07")) ||
+                        (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
+                        (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
+                        (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
                     if (a.size() > 0) return false;
                 }
             }
