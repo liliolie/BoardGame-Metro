@@ -235,6 +235,7 @@ public class Metro {
 //            else return false;
 //        }
 //        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
+
         //  Method 2
         // Count how many times the substring appears in the larger string
         String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
@@ -366,6 +367,7 @@ public class Metro {
 //                placementSequence = placementSequence.substring(0, placementSequence.indexOf(allTile)) + placementSequence.substring(placementSequence.indexOf(allTile) + 6);
 //            }
 //        }
+
 //        // Remove the tiles in all hands
 //        char separator = '_';
 //        StringBuilder totalHands1 = new StringBuilder(totalHands);
@@ -380,6 +382,7 @@ public class Metro {
 //                totalHandsNew = totalHandsNew.substring(0, totalHandsNew.indexOf(allTile)) + totalHandsNew.substring(totalHandsNew.indexOf(allTile) + 4);
 //            }
 //        }
+
 //        //Random a tile from the leftover list
 //        int randIndex = new Random().nextInt(joinedList.size()); //generate random int [0,size]
 //        return joinedList.get(randIndex);
