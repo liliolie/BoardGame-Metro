@@ -452,31 +452,31 @@ public class Metro {
         }
         List<String> tile = new ArrayList<>(Arrays.asList(tileArray));
         for (int i = 0; i < position.size(); i++) {
-            List<Integer> b = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 10, 20, 30, 40, 50, 60, 70, 17, 27, 37, 47, 57, 67, 71, 72, 73, 74, 75, 76, 77));
+            List<Integer> initialCood = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 10, 20, 30, 40, 50, 60, 70, 17, 27, 37, 47, 57, 67, 71, 72, 73, 74, 75, 76, 77));
             if (i == 0) {
                 if (tile.get(i).charAt(0) == 'd') {
-                    b.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
+                    initialCood.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
                 }
                 if (tile.get(i).charAt(1) == 'd') {
-                    b.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
+                    initialCood.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
                 }
                 if (tile.get(i).charAt(2) == 'd') {
-                    b.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
+                    initialCood.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
                 }
                 if (tile.get(i).charAt(3) == 'd') {
-                    b.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
+                    initialCood.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
                 }
                 if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c') {
-                    b.removeAll(Collections.singletonList(7));
+                    initialCood.removeAll(Collections.singletonList(7));
                 }
                 if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b') {
-                    b.removeAll(Collections.singletonList(0));
+                    initialCood.removeAll(Collections.singletonList(0));
                 }
                 if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c') {
-                    b.removeAll(Collections.singletonList(70));
+                    initialCood.removeAll(Collections.singletonList(70));
                 }
                 if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c') {
-                    b.removeAll(Collections.singletonList(77));
+                    initialCood.removeAll(Collections.singletonList(77));
                 }
                 if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
                         (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
@@ -486,43 +486,44 @@ public class Metro {
                         (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
                         (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
                         (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
-                    if (b.size() > 0) return false;
+                    if (initialCood.size() > 0) return false;
                 }
             } else {
                 for (int j = 0; j < i; j++) {
-                    b.addAll(Arrays.asList(Integer.parseInt(position.get(j)) + 1, Integer.parseInt(position.get(j)) - 1, Integer.parseInt(position.get(j)) + 10, Integer.parseInt(position.get(j)) - 10));
-                    b.retainAll(allPositionNum);
+                    initialCood.addAll(Arrays.asList(Integer.parseInt(position.get(j)) + 1, Integer.parseInt(position.get(j)) - 1,
+                            Integer.parseInt(position.get(j)) + 10, Integer.parseInt(position.get(j)) - 10));
+                    initialCood.retainAll(allPositionNum);
                 }
                 for (int j = 0; j < i; j++) {
-                    while (b.contains(Integer.valueOf(position.get(j)))) {
-                        b.remove(Integer.valueOf(position.get(j)));
+                    while (initialCood.contains(Integer.valueOf(position.get(j)))) {
+                        initialCood.remove(Integer.valueOf(position.get(j)));
                     }
                 }
-                b = b.stream().distinct().collect(Collectors.toList());
-                Collections.sort(b);
+                initialCood = initialCood.stream().distinct().collect(Collectors.toList());
+                Collections.sort(initialCood);
                 if (tile.get(i).charAt(0) == 'd') {
-                    b.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
+                    initialCood.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
                 }
                 if (tile.get(i).charAt(1) == 'd') {
-                    b.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
+                    initialCood.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
                 }
                 if (tile.get(i).charAt(2) == 'd') {
-                    b.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
+                    initialCood.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
                 }
                 if (tile.get(i).charAt(3) == 'd') {
-                    b.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
+                    initialCood.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
                 }
                 if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c') {
-                    b.removeAll(Collections.singletonList(7));
+                    initialCood.removeAll(Collections.singletonList(7));
                 }
                 if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b') {
-                    b.removeAll(Collections.singletonList(0));
+                    initialCood.removeAll(Collections.singletonList(0));
                 }
                 if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c') {
-                    b.removeAll(Collections.singletonList(70));
+                    initialCood.removeAll(Collections.singletonList(70));
                 }
                 if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c') {
-                    b.removeAll(Collections.singletonList(77));
+                    initialCood.removeAll(Collections.singletonList(77));
                 }
                 if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
                         (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
@@ -532,7 +533,7 @@ public class Metro {
                         (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
                         (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
                         (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
-                    if (b.size() > 0) return false;
+                    if (initialCood.size() > 0) return false;
                 }
             }
         }
