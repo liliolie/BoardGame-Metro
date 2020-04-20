@@ -432,13 +432,6 @@ public class Metro {
 
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
-        String original = placementSequence;
-        while (placementSequence.startsWith("dddd") && (placementSequence.startsWith("00", 4) ||
-                placementSequence.startsWith("07", 4) ||
-                placementSequence.startsWith("70", 4) ||
-                placementSequence.startsWith("77", 4))) {
-            placementSequence = placementSequence.substring(6);
-        }
         String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
         String[] positionArray = placementPosition.split(",");
         String placementTile = placementSequence.replaceAll("([0-7][0-7])", ",");
@@ -543,7 +536,7 @@ public class Metro {
                 }
             }
         }
-        return firstStep(original);
+        return firstStep(placementSequence);
     }
 
     /**
