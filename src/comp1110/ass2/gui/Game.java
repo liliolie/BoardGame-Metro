@@ -9,9 +9,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,6 +52,7 @@ public class Game extends Application {
 
     private final Group root = new Group();
     private final Group controls = new Group();
+    private final Group scores = new Group();
     private final Group tiles = new Group();
     private final Group board = new Group();
     private final Group station_imgs = new Group();
@@ -65,6 +63,7 @@ public class Game extends Application {
     private String placement = "";
     private Map<String, Integer> remain_tiles = new HashMap<>();
     private List<Text> txt_cnts = new ArrayList<>();
+    private List<Integer> scores_ary = new ArrayList<>();
 
     class Tile extends ImageView {
         String type = "";
@@ -189,6 +188,14 @@ public class Game extends Application {
                 x = (int) Math.round((getLayoutX() - MARGIN_X) / (SQUARE_SIZE + 0.0f));
                 y = (int) Math.round((getLayoutY() - MARGIN_Y) / (SQUARE_SIZE + 0.0f));
                 //System.out.println(x + " " + y);
+                String put_str = placement + type + (x - 1) + (y - 1);
+                System.out.println(put_str);
+                if (!Metro.isPlacementSequenceValid(put_str)) {
+                    setLayoutX(homeX);
+                    setLayoutY(homeY);
+                    return;
+                }
+
                 if (4 <= x && x <= 5 && 4 <= y && y <= 5) {
                     setLayoutX(homeX);
                     setLayoutY(homeY);
@@ -196,12 +203,23 @@ public class Game extends Application {
                 }
                 setLayoutX(x * SQUARE_SIZE + MARGIN_X - 4);
                 setLayoutY(y * SQUARE_SIZE + MARGIN_Y - 4.3);
-                placement += type;
+                placement = put_str;
                 int remain = remain_tiles.get(type) - 1;
                 remain_tiles.put(type, remain);
                 if (remain != 0)
                     draggable_tiles.getChildren().add(new Tile(type));
                 freshCounters(type, remain);
+
+                scores_ary.clear();
+                for (int i = 2; i < 7; i++) {
+                    int s[] = Metro.getScore(placement, i);
+                    ArrayList<Integer> int_ary = new ArrayList<>();
+                    for (int j = 0; j < i; j++) {
+                        int_ary.add(s[j]);
+                    }
+                    scores_ary.addAll(int_ary);
+                }
+                updateScores();
             }
         }
 
@@ -409,9 +427,9 @@ public class Game extends Application {
     private void makeControls() {
         Text label1 = new Text("Press R to restart game, Q to exit, have fun!");
         label1.setFont(Font.font("Timer New Roman",
-                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 17));
-        label1.setLayoutX(160);
-        label1.setLayoutY(VIEWER_HEIGHT - 74);
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 19));
+        label1.setLayoutX(112);
+        label1.setLayoutY(VIEWER_HEIGHT - 70);
 //        Button button = new Button("Start");
 //        button.setOnAction(e -> {
 //            makePlacement("");
@@ -423,6 +441,72 @@ public class Game extends Application {
 //        button.setLayoutX(405);
 //        button.setLayoutY(VIEWER_HEIGHT - 75);
         controls.getChildren().add(label1);
+    }
+
+    private void makeScores() {
+        if (scores_ary.size() < 20) {
+            for (int i = 0; i < 20; i++) {
+                scores_ary.add(0);
+            }
+        }
+
+        updateScores();
+
+        root.getChildren().add(scores);
+    }
+
+    private void updateScores() {
+
+        scores.getChildren().clear();
+        Text score_txt = new Text("scores:");
+        score_txt.setFont(Font.font("Timer New Roman",
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 18));
+        score_txt.setLayoutX(VIEWER_WIDTH - 526);
+        score_txt.setLayoutY(VIEWER_HEIGHT - 100);
+        scores.getChildren().add(score_txt);
+
+        int left_col_offset = 450;
+        Text score2 = new Text("2 players: " + scores_ary.get(0) + " : " + scores_ary.get(1));
+        score2.setFont(Font.font("Timer New Roman",
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
+        score2.setLayoutX(VIEWER_WIDTH - left_col_offset);
+        score2.setLayoutY(VIEWER_HEIGHT - 100);
+        scores.getChildren().add(score2);
+
+        Text score3 = new Text("3 players: " + scores_ary.get(2) + " : " + scores_ary.get(3)
+                + " : " + scores_ary.get(4));
+        score3.setFont(Font.font("Timer New Roman",
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
+        score3.setLayoutX(VIEWER_WIDTH - left_col_offset);
+        score3.setLayoutY(VIEWER_HEIGHT - 60);
+        scores.getChildren().add(score3);
+
+        Text score4 = new Text("4 players: " + scores_ary.get(5) + " : " + scores_ary.get(6)
+                + " : " + scores_ary.get(7) + " : " + scores_ary.get(8));
+        score4.setFont(Font.font("Timer New Roman",
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
+        score4.setLayoutX(VIEWER_WIDTH - left_col_offset);
+        score4.setLayoutY(VIEWER_HEIGHT - 20);
+        scores.getChildren().add(score4);
+
+        left_col_offset -= 190;
+
+        Text score5 = new Text("5 players: " + scores_ary.get(9) + " : " + scores_ary.get(10)
+                + " : " + scores_ary.get(11) + " : " + scores_ary.get(12) + " : " + scores_ary.get(13));
+        score5.setFont(Font.font("Timer New Roman",
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
+        score5.setLayoutX(VIEWER_WIDTH - left_col_offset);
+        score5.setLayoutY(VIEWER_HEIGHT - 85);
+        scores.getChildren().add(score5);
+
+        Text score6 = new Text("6 players: " + scores_ary.get(14) + " : " + scores_ary.get(15)
+                + " : " + scores_ary.get(16) + " : " + scores_ary.get(17) + " : " + scores_ary.get(18)
+                + " : " + scores_ary.get(19));
+        score6.setFont(Font.font("Timer New Roman",
+                FontWeight.SEMI_BOLD, FontPosture.ITALIC, 15));
+        score6.setLayoutX(VIEWER_WIDTH - left_col_offset - 12);
+        score6.setLayoutY(VIEWER_HEIGHT - 40);
+        scores.getChildren().add(score6);
     }
 
     private void setUpHotKeys(Scene scene) {
@@ -452,6 +536,7 @@ public class Game extends Application {
         makeStations();
         makeDraggableTiles();
         makeCounters();
+        makeScores();
 
         primaryStage.setScene(scene);
         primaryStage.show();
