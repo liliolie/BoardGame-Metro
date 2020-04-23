@@ -442,7 +442,9 @@ public class Metro {
      * @param placementSequence A sequence of placements on the board.
      * @return Whether this placement string is valid.
      */
-    public static boolean firstStep(String placementSequence) {
+
+    public static boolean isPlacementSequenceValid(String placementSequence) {
+        // FIXME Task 6: determine whether a placement sequence is valid
         if (placementSequence.length() == 0) return true;
         String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
         String[] positionArray = placementPosition.split(",");
@@ -454,7 +456,6 @@ public class Metro {
         for (String e : position) {
             positionNum.add(Integer.valueOf(e));
         }
-        List<String> tile = new ArrayList<>(Arrays.asList(tileArray));
         for (int i = 0; i < position.size(); i++) {
             if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44"))
                 return false;
@@ -467,18 +468,6 @@ public class Metro {
                         !positionNum.contains(positionNum.get(i) - 10)) return false;
             }
         }
-        return true;
-    }
-
-    public static boolean isPlacementSequenceValid(String placementSequence) {
-        // FIXME Task 6: determine whether a placement sequence is valid
-        String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
-        String[] positionArray = placementPosition.split(",");
-        String placementTile = placementSequence.replaceAll("([0-7][0-7])", ",");
-        String[] tileArray = placementTile.split(",");
-        List<String> position = new ArrayList<>(Arrays.asList(positionArray));
-        position.remove("");
-
         List<Integer> allPositionNum = new ArrayList<>();
         for (String e : allPosition) {
             allPositionNum.add(Integer.valueOf(e));
@@ -570,9 +559,7 @@ public class Metro {
                 }
             }
         }
-        boolean res = firstStep(placementSequence);
-        // System.out.println(placementSequence+" res:"+res);
-        return res;
+        return true;
     }
 
     /**
