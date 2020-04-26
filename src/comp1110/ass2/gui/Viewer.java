@@ -174,7 +174,7 @@ public class Viewer extends Application {
         Canvas canvas = new Canvas(VIEWER_WIDTH, VIEWER_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         drawLines(gc);
-        
+
         root.getChildren().add(board);
         root.getChildren().add(canvas);
         canvas.toBack();

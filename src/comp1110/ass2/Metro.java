@@ -327,7 +327,7 @@ public class Metro {
      */
     public static boolean isPlacementSequenceWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement sequence is well-formed
-        //  Method 1
+        // Method 1
 //        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
 //        int cbcb = 0; int bcbc = 0;
 //        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
