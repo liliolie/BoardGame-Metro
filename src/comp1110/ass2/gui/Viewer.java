@@ -174,11 +174,11 @@ public class Viewer extends Application {
         Canvas canvas = new Canvas(VIEWER_WIDTH, VIEWER_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         drawLines(gc);
-
-        board.toBack();
-        canvas.toBack();
+        
         root.getChildren().add(board);
         root.getChildren().add(canvas);
+        canvas.toBack();
+        board.toBack();
     }
 
     public void drawLines(GraphicsContext gc) {
