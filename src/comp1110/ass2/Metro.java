@@ -81,6 +81,134 @@ import java.util.stream.Stream;
  * @return return true when game is over
  * public static boolean isGameOver(String placementSequence,String hand) {
  * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
  */
 
 /**
@@ -144,6 +272,14 @@ public class Metro {
     public final static List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda",
             "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
     private final static String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
+    private final static List<String> allPosition = new ArrayList<>(Arrays.asList("00", "01", "02", "03", "04", "05", "06", "07",
+            "10", "11", "12", "13", "14", "15", "16", "17",
+            "20", "21", "22", "23", "24", "25", "26", "27",
+            "30", "31", "32", "35", "36", "37",
+            "40", "41", "42", "45", "46", "47",
+            "50", "51", "52", "53", "54", "55", "56", "57",
+            "60", "61", "62", "63", "64", "65", "66", "67",
+            "70", "71", "72", "73", "74", "75", "76", "77"));
 
     /**
      * Task 2
@@ -164,11 +300,11 @@ public class Metro {
         //  Method 1
         return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
     }
-        //  Method 2
+    //  Method 2
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
 //        return matcher.matches();
-        //  Method 3
+    //  Method 3
 //        if (piecePlacement.length() == 6) {
 //            for (int i = 0; i < piecePlacement.length() - 2; i++) {
 //                if (!(piecePlacement.charAt(i) >= 'a' && piecePlacement.charAt(i) <= 'd')) {
@@ -327,7 +463,7 @@ public class Metro {
         int index = rand.nextInt(joinedList.size());
         return joinedList.get(index);
     }
-        //  Method 2
+    //  Method 2
     // Create total tiles list
 //        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
 //        List<String> list1 = Arrays.asList("cbcb", "bcbc");
@@ -405,7 +541,9 @@ public class Metro {
      * @param placementSequence A sequence of placements on the board.
      * @return Whether this placement string is valid.
      */
-    public static boolean firstStep(String placementSequence) {
+
+    public static boolean isPlacementSequenceValid(String placementSequence) {
+        // FIXME Task 6: determine whether a placement sequence is valid
         if (placementSequence.length() == 0) return true;
         String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
         String[] positionArray = placementPosition.split(",");
@@ -417,7 +555,6 @@ public class Metro {
         for (String e : position) {
             positionNum.add(Integer.valueOf(e));
         }
-        List<String> tile = new ArrayList<>(Arrays.asList(tileArray));
         for (int i = 0; i < position.size(); i++) {
             if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44"))
                 return false;
@@ -430,25 +567,6 @@ public class Metro {
                         !positionNum.contains(positionNum.get(i) - 10)) return false;
             }
         }
-        return true;
-    }
-
-    public static boolean isPlacementSequenceValid(String placementSequence) {
-        // FIXME Task 6: determine whether a placement sequence is valid
-        String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
-        String[] positionArray = placementPosition.split(",");
-        String placementTile = placementSequence.replaceAll("([0-7][0-7])", ",");
-        String[] tileArray = placementTile.split(",");
-        List<String> position = new ArrayList<>(Arrays.asList(positionArray));
-        position.remove("");
-        List<String> allPosition = new ArrayList<>(Arrays.asList("00", "01", "02", "03", "04", "05", "06", "07",
-                "10", "11", "12", "13", "14", "15", "16", "17",
-                "20", "21", "22", "23", "24", "25", "26", "27",
-                "30", "31", "32", "35", "36", "37",
-                "40", "41", "42", "45", "46", "47",
-                "50", "51", "52", "53", "54", "55", "56", "57",
-                "60", "61", "62", "63", "64", "65", "66", "67",
-                "70", "71", "72", "73", "74", "75", "76", "77"));
         List<Integer> allPositionNum = new ArrayList<>();
         for (String e : allPosition) {
             allPositionNum.add(Integer.valueOf(e));
@@ -540,7 +658,7 @@ public class Metro {
                 }
             }
         }
-        return firstStep(placementSequence);
+        return true;
     }
 
     /**
@@ -664,15 +782,24 @@ public class Metro {
      * Given a placement sequence string, generate a valid next move.
      *
      * @param placementSequence a String representing the sequence of piece placements made so far in the game
-     * @param piece             a four-character String representing the tile just drawn
-     * @param hand              A tile in the player's hand, which they can choose to play instead of the drawn tile.
-     *                          If the player does not currently hold a tile, this parameter will be null.
+     * @param piece             a four-character String representing the tile to be placed
      * @param numberOfPlayers   The number of players in the game
-     * @return A valid placement of other the drawn tile or the tile from the player's hand (if it is not empty).
+     * @return A valid placement of the given tile
      */
-    public static String generateMove(String placementSequence, String piece, String hand, int numberOfPlayers) {
+    public static String generateMove(String placementSequence, String piece, int numberOfPlayers) {
         // FIXME Task 9: generate a valid move
-        return "";
+//        System.out.println("placementSequence = " + placementSequence);
+//        System.out.println("piece hand = " + piece + " ");
+        String res = "";
+        A:
+        for (int j, i = 0; i < 8; i++)
+            for (j = 0; j < 8; j++)
+                if (isPlacementSequenceValid(placementSequence + piece + i + j)) {
+                    res = piece + i + j;
+                    break A;
+                }
+        //System.out.println("res=" + res);
+        return res;
     }
 
 
