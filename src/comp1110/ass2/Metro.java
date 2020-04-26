@@ -113,6 +113,102 @@ import java.util.stream.Stream;
  * @return return true when game is over
  * public static boolean isGameOver(String placementSequence,String hand) {
  * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
  */
 
 /**
@@ -689,19 +785,17 @@ public class Metro {
      */
     public static String generateMove(String placementSequence, String piece, int numberOfPlayers) {
         // FIXME Task 9: generate a valid move
-        System.out.println("placementSequence = " + placementSequence);
-        System.out.println("piece hand = " + piece + " " + hand);
-        String res="";
-        if (hand == null)
-            A:for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (isPlacementSequenceValid(placementSequence +piece+i+j)){
-                        res=piece+i+j;
-                        break A;
-                    }
+//        System.out.println("placementSequence = " + placementSequence);
+//        System.out.println("piece hand = " + piece + " ");
+        String res = "";
+        A:
+        for (int j, i = 0; i < 8; i++)
+            for (j = 0; j < 8; j++)
+                if (isPlacementSequenceValid(placementSequence + piece + i + j)) {
+                    res = piece + i + j;
+                    break A;
                 }
-            }
-        System.out.println("res="+res);
+        //System.out.println("res=" + res);
         return res;
     }
 
