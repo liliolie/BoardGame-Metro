@@ -270,16 +270,8 @@ public class Metro {
     public final static List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"); //5
     public final static List<String> list1 = Arrays.asList("cbcb", "bcbc"); //2
     public final static List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda",
-            "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
+            "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"); //17
     private final static String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
-    private final static List<String> allPosition = new ArrayList<>(Arrays.asList("00", "01", "02", "03", "04", "05", "06", "07",
-            "10", "11", "12", "13", "14", "15", "16", "17",
-            "20", "21", "22", "23", "24", "25", "26", "27",
-            "30", "31", "32", "35", "36", "37",
-            "40", "41", "42", "45", "46", "47",
-            "50", "51", "52", "53", "54", "55", "56", "57",
-            "60", "61", "62", "63", "64", "65", "66", "67",
-            "70", "71", "72", "73", "74", "75", "76", "77"));
 
     /**
      * Task 2
@@ -427,19 +419,19 @@ public class Metro {
     public static String drawFromDeck(String placementSequence, String totalHands) {
         // FIXME Task 5: draw a random tile from the deck
         // Method 1
-        List<String> list00 = new ArrayList<>(Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"));
+        List<String> list00 = new ArrayList<>(List.copyOf(list0));
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
                 list00.add(list00.get(i));
             }
         }
-        List<String> list01 = new ArrayList<>(Arrays.asList("cbcb", "bcbc"));
+        List<String> list01 = new ArrayList<>(List.copyOf(list1));
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 list01.add(list01.get(i));
             }
         }
-        List<String> list02 = new ArrayList<>(Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"));
+        List<String> list02 = new ArrayList<>(List.copyOf(list2));
         for (int i = 0; i < 17; i++) {
             list02.add(list02.get(i));
         }
@@ -447,14 +439,12 @@ public class Metro {
         joinedList.addAll(list00);
         joinedList.addAll(list01);
         joinedList.addAll(list02);
-        if (placementSequence.length() == 0) {
-        } else {
+        if (placementSequence.length() != 0) {
             for (int i = 0; i <= placementSequence.length() - 6; i += 6) {
                 joinedList.remove(placementSequence.substring(i, i + 4));
             }
         }
-        if (totalHands.length() == 0) {
-        } else {
+        if (totalHands.length() != 0) {
             for (int i = 0; i <= totalHands.length() - 4; i += 4) {
                 joinedList.remove(totalHands.substring(i, i + 4));
             }
@@ -465,9 +455,6 @@ public class Metro {
     }
     //  Method 2
     // Create total tiles list
-//        List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa");
-//        List<String> list1 = Arrays.asList("cbcb", "bcbc");
-//        List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
 //        List<String> repeatList0 = new ArrayList<>();
 //        List<String> repeatList1 = new ArrayList<>();
 //        List<String> repeatList2 = new ArrayList<>();
@@ -545,16 +532,8 @@ public class Metro {
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
         if (placementSequence.length() == 0) return true;
-        String placementPosition = placementSequence.replaceAll("([a-d][a-d][a-d][a-d])", ",");
-        String[] positionArray = placementPosition.split(",");
-        String placementTile = placementSequence.replaceAll("([0-7][0-7])", ",");
-        String[] tileArray = placementTile.split(",");
-        List<String> position = new ArrayList<>(Arrays.asList(positionArray));
-        position.remove("");
-        List<Integer> positionNum = new ArrayList<>();
-        for (String e : position) {
-            positionNum.add(Integer.valueOf(e));
-        }
+        List<String> position = Coordinates.placedCoordinates(placementSequence);
+        List<Integer> positionNum = Coordinates.coordinatesAsNumbers(placementSequence);
         for (int i = 0; i < position.size(); i++) {
             if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44"))
                 return false;
@@ -563,99 +542,63 @@ public class Metro {
             }
             if ((positionNum.get(i) >= 11 && positionNum.get(i) <= 16) || (positionNum.get(i) >= 21 && positionNum.get(i) <= 26) || (positionNum.get(i) >= 31 && positionNum.get(i) <= 36) ||
                     (positionNum.get(i) >= 41 && positionNum.get(i) <= 46) || (positionNum.get(i) >= 51 && positionNum.get(i) <= 56) || (positionNum.get(i) >= 61 && positionNum.get(i) <= 66)) {
-                if (!positionNum.contains(positionNum.get(i) + 1) && !positionNum.contains(positionNum.get(i) - 1) && !positionNum.contains(positionNum.get(i) + 10) &&
-                        !positionNum.contains(positionNum.get(i) - 10)) return false;
+                if (!positionNum.subList(0,i).contains(positionNum.get(i) + 1) && !positionNum.subList(0,i).contains(positionNum.get(i) - 1) && !positionNum.subList(0,i).contains(positionNum.get(i) + 10) &&
+                        !positionNum.subList(0,i).contains(positionNum.get(i) - 10)) return false;
             }
         }
         List<Integer> allPositionNum = new ArrayList<>();
-        for (String e : allPosition) {
+        for (String e : Coordinates.allCoordinates) {
             allPositionNum.add(Integer.valueOf(e));
         }
-        List<String> tile = new ArrayList<>(Arrays.asList(tileArray));
+        List<String> tile = Tiles.placedTiles(placementSequence);
         for (int i = 0; i < position.size(); i++) {
-            List<Integer> initialCood = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 10, 20, 30, 40, 50, 60, 70, 17, 27, 37, 47, 57, 67, 71, 72, 73, 74, 75, 76, 77));
-            if (i == 0) {
-                if (tile.get(i).charAt(0) == 'd') {
-                    initialCood.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
-                }
-                if (tile.get(i).charAt(1) == 'd') {
-                    initialCood.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
-                }
-                if (tile.get(i).charAt(2) == 'd') {
-                    initialCood.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
-                }
-                if (tile.get(i).charAt(3) == 'd') {
-                    initialCood.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
-                }
-                if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c') {
-                    initialCood.removeAll(Collections.singletonList(7));
-                }
-                if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b') {
-                    initialCood.removeAll(Collections.singletonList(0));
-                }
-                if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c') {
-                    initialCood.removeAll(Collections.singletonList(70));
-                }
-                if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c') {
-                    initialCood.removeAll(Collections.singletonList(77));
-                }
-                if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
-                        (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
-                        (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
-                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0') ||
-                        (tile.get(i).charAt(0) == 'b' && position.get(i).equals("07")) || (tile.get(i).charAt(1) == 'c' && position.get(i).equals("07")) ||
-                        (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
-                        (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
-                        (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
-                    if (initialCood.size() > 0) return false;
-                }
-            } else {
+            List<Integer> initialCoord = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 10, 20, 30, 40, 50, 60, 70, 17, 27, 37, 47, 57, 67, 71, 72, 73, 74, 75, 76, 77));
+            if (i != 0) {
                 for (int j = 0; j < i; j++) {
-                    initialCood.addAll(Arrays.asList(Integer.parseInt(position.get(j)) + 1, Integer.parseInt(position.get(j)) - 1,
+                    initialCoord.addAll(Arrays.asList(Integer.parseInt(position.get(j)) + 1, Integer.parseInt(position.get(j)) - 1,
                             Integer.parseInt(position.get(j)) + 10, Integer.parseInt(position.get(j)) - 10));
-                    initialCood.retainAll(allPositionNum);
+                    initialCoord.retainAll(allPositionNum);
                 }
                 for (int j = 0; j < i; j++) {
-                    while (initialCood.contains(Integer.valueOf(position.get(j)))) {
-                        initialCood.remove(Integer.valueOf(position.get(j)));
+                    while (initialCoord.contains(Integer.valueOf(position.get(j)))) {
+                        initialCoord.remove(Integer.valueOf(position.get(j)));
                     }
                 }
-                initialCood = initialCood.stream().distinct().collect(Collectors.toList());
-                Collections.sort(initialCood);
-                if (tile.get(i).charAt(0) == 'd') {
-                    initialCood.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
-                }
-                if (tile.get(i).charAt(1) == 'd') {
-                    initialCood.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
-                }
-                if (tile.get(i).charAt(2) == 'd') {
-                    initialCood.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
-                }
-                if (tile.get(i).charAt(3) == 'd') {
-                    initialCood.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
-                }
-                if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c') {
-                    initialCood.removeAll(Collections.singletonList(7));
-                }
-                if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b') {
-                    initialCood.removeAll(Collections.singletonList(0));
-                }
-                if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c') {
-                    initialCood.removeAll(Collections.singletonList(70));
-                }
-                if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c') {
-                    initialCood.removeAll(Collections.singletonList(77));
-                }
-                if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
-                        (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
-                        (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
-                        (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0') ||
-                        (tile.get(i).charAt(0) == 'b' && position.get(i).equals("07")) || (tile.get(i).charAt(1) == 'c' && position.get(i).equals("07")) ||
-                        (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
-                        (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
-                        (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
-                    if (initialCood.size() > 0) return false;
-                }
+                initialCoord = initialCoord.stream().distinct().collect(Collectors.toList());
+            }
+            if (tile.get(i).charAt(0) == 'd') {
+                initialCoord.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
+            }
+            if (tile.get(i).charAt(1) == 'd') {
+                initialCoord.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
+            }
+            if (tile.get(i).charAt(2) == 'd') {
+                initialCoord.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
+            }
+            if (tile.get(i).charAt(3) == 'd') {
+                initialCoord.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
+            }
+            if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c') {
+                initialCoord.removeAll(Collections.singletonList(7));
+            }
+            if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b') {
+                initialCoord.removeAll(Collections.singletonList(0));
+            }
+            if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c') {
+                initialCoord.removeAll(Collections.singletonList(70));
+            }
+            if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c') {
+                initialCoord.removeAll(Collections.singletonList(77));
+            }
+            if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
+                    (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
+                    (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
+                    (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0') ||
+                    (tile.get(i).charAt(0) == 'b' && position.get(i).equals("07")) || (tile.get(i).charAt(1) == 'c' && position.get(i).equals("07")) ||
+                    (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
+                    (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
+                    (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
+                if (initialCoord.size() > 0) return false;
             }
         }
         return true;
@@ -744,7 +687,6 @@ public class Metro {
             res[4] = s[2] + s[8] + s[12] + s[22] + s[29];
             res[5] = s[6] + s[11] + s[21] + s[27] + s[31];
         }
-        //System.out.println(numberOfPlayers + " player: " + res[0] + " " + res[1]);
         if (placementSequence.equals(SAMPLE_START)) res[1]--;
         return res;
     }
@@ -788,8 +730,6 @@ public class Metro {
      */
     public static String generateMove(String placementSequence, String piece, int numberOfPlayers) {
         // FIXME Task 9: generate a valid move
-//        System.out.println("placementSequence = " + placementSequence);
-//        System.out.println("piece hand = " + piece + " ");
         String res = "";
         A:
         for (int j, i = 0; i < 8; i++)
@@ -798,9 +738,6 @@ public class Metro {
                     res = piece + i + j;
                     break A;
                 }
-        //System.out.println("res=" + res);
         return res;
     }
-
-
 }
