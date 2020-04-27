@@ -175,10 +175,10 @@ public class Viewer extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         drawLines(gc);
 
-        board.toBack();
-        canvas.toBack();
         root.getChildren().add(board);
         root.getChildren().add(canvas);
+        canvas.toBack();
+        board.toBack();
     }
 
     public void drawLines(GraphicsContext gc) {
