@@ -32,7 +32,7 @@ For Deliverable D2D, I contributed the following new statements of original code
     b. Lines 485 - 507; i use matcher to match the tiles been placed and tiles in hand 
     and removed those from the whole tiles list
     
-    c. Lines 509 - 511; i random a tile from the
+    c. Lines 509 - 511; i random a tile from the leftover list 
      
  4. I also developed the following code that do not included in the Metro Class because my group member's code is better
  
@@ -89,14 +89,7 @@ For Deliverable D2D, I contributed the following new statements of original code
                    return false;
                }
            } 
-    
-            
-          
-                        
-              
- 
- 
-
+                     
 -
 
 (List at least 10, and include line numbers.)
