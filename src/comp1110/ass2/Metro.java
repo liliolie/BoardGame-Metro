@@ -666,7 +666,7 @@ public class Metro {
                 res[i % 2] += s[i];
         else if (numberOfPlayers == 3) {// 3  10  4  3  1  6  6  31  2  4
             res[0] = s[0] + s[3] + s[5] + s[10] + s[14] + s[19] + s[22] + s[24] + s[27] + s[30];
-            res[1] = s[1] + s[6] + s[7] + s[11] + s[13] + s[18] + s[21] + s[26] + s[28] + s[31];
+            res[1] = s[1] + s[6] + s[8] + s[11] + s[13] + s[18] + s[21] + s[26] + s[28] + s[31];
             res[2] = s[2] + s[4] + s[7] + s[9] + s[12] + s[17] + s[20] + s[23] + s[25] + s[29];
         } else if (numberOfPlayers == 4) {
             res[0] = s[3] + s[6] + s[10] + s[15] + s[19] + s[22] + s[26] + s[31];
@@ -687,7 +687,7 @@ public class Metro {
             res[4] = s[2] + s[8] + s[12] + s[22] + s[29];
             res[5] = s[6] + s[11] + s[21] + s[27] + s[31];
         }
-        if (placementSequence.equals(SAMPLE_START)) res[1]--;
+        //if (placementSequence.equals(SAMPLE_START)) res[1]--;
         return res;
     }
 
