@@ -767,7 +767,7 @@ public class Metro {
                 s[i] = (3 <= row && row <= 4 && 3 <= col && col <= 4) ? 2 * t : t;
         }
 
-        //sum the scores for each player by 'numberOfPlayers'
+        //sum the scores for each player
         if (numberOfPlayers == 2)
             for (int i = 0; i < 32; i++)
                 res[i % 2] += s[i];
@@ -799,10 +799,7 @@ public class Metro {
     }
 
 
-    //Integer entry: the entry number for trip, should in range 0-8
-    //String tile: the type for the tile, help to get the way to next tile
-    //return int: exit gate number, range from 0 - 8
-    // (clock-wise present gates from north left which is 0 to west up which is 8)
+
     protected static int getNextExit(String tile, int entry) {
         if (entry < 0 || entry > 7) return -1;
         if (!Tiles.allKinds.contains(tile)) return -1;
