@@ -395,9 +395,6 @@ import java.util.stream.Stream;
 
 
 public class Metro {
-    private final static List<String> list_all = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa", "cbcb", "bcbc",
-            "cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb",
-            "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd");
     private final static String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
 
     /**
@@ -644,28 +641,8 @@ public class Metro {
         if (placementSequence.length() == 0) return true;
         List<String> position = Coordinates.placedCoordinates(placementSequence);
         List<Integer> positionNum = Coordinates.coordinatesAsNumbers(placementSequence);
-        for (int i = 0; i < position.size(); i++) {
-            String coordinate1 = position.get(i);
-            if (coordinate1.equals("33") || coordinate1.equals("34") || coordinate1.equals("43") || coordinate1.equals("44"))
-                return false;
-            for (int j = position.size() - 1; j > i; j--) {
-                String coordinate2 = position.get(j);
-                if (coordinate1.equals(coordinate2)) return false;
-            }
-            Integer coordinateNum = positionNum.get(i);
-            List<Integer> previousCoordinates = positionNum.subList(0, i);
-            if ((coordinateNum >= 11 && coordinateNum <= 16) ||
-                    (coordinateNum >= 21 && coordinateNum <= 26) ||
-                    (coordinateNum >= 31 && coordinateNum <= 36) ||
-                    (coordinateNum >= 41 && coordinateNum <= 46) ||
-                    (coordinateNum >= 51 && coordinateNum <= 56) ||
-                    (coordinateNum >= 61 && coordinateNum <= 66)) {
-                if (!previousCoordinates.contains(coordinateNum + 1) &&
-                        !previousCoordinates.contains(coordinateNum - 1) &&
-                        !previousCoordinates.contains(coordinateNum + 10) &&
-                        !previousCoordinates.contains(coordinateNum - 10)) return false;
-            }
-        }
+        if (Tiles.overlapTiles(placementSequence)) return false;
+        if (Tiles.noAdjacentTiles(placementSequence)) return false;
         List<Integer> allPositionNum = new ArrayList<>();
         for (String e : Coordinates.allCoordinates) {
             allPositionNum.add(Integer.valueOf(e));
@@ -828,7 +805,7 @@ public class Metro {
     // (clock-wise present gates from north left which is 0 to west up which is 8)
     protected static int getNextExit(String tile, int entry) {
         if (entry < 0 || entry > 7) return -1;
-        if (list_all.indexOf(tile) == -1) return -1;
+        if (!Tiles.allKinds.contains(tile)) return -1;
         if (entry % 2 == 0)
             switch (tile.charAt(entry / 2)) {
                 case 'a':
