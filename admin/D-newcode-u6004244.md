@@ -88,8 +88,7 @@ For Deliverable D2D, I contributed the following new statements of original code
                if (rightBottom.equals("b") || rightBottom.equals("c")) {
                    return false;
                }
-           } 
-                     
+           }                    
 -
 
 (List at least 10, and include line numbers.)
