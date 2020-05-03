@@ -267,10 +267,6 @@ import java.util.stream.Stream;
 
 
 public class Metro {
-    public final static List<String> list0 = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"); //5
-    public final static List<String> list1 = Arrays.asList("cbcb", "bcbc"); //2
-    public final static List<String> list2 = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda",
-            "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"); //17
     private final static String SAMPLE_START = "bcbc02cbcb67bcdd66cbaa17ddbc12ccda03dbcd37badb16cccc13dada65bbbb11aacb06dacc21dada36adbb22baac75acba04aaaa15cbaa23cdac05dddd24aacb27baac55bcbc32badb47acba26accd73bbbb45bbad64aaaa20cddb25aacb07cbcb30adad01aaaa00acba10cdac60dacc72ccda14dbba35cccc62accd71cbaa63baac56acba77cddb61dbcd54cbaa31bbad76cbcb74adad52baac51adbb42ddbc40dddd46dbba53bcbc41aacb57bcdd50aaaa70";
 
     /**
@@ -419,26 +415,7 @@ public class Metro {
     public static String drawFromDeck(String placementSequence, String totalHands) {
         // FIXME Task 5: draw a random tile from the deck
         // Method 1
-        List<String> list00 = new ArrayList<>(List.copyOf(list0));
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
-                list00.add(list00.get(i));
-            }
-        }
-        List<String> list01 = new ArrayList<>(List.copyOf(list1));
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                list01.add(list01.get(i));
-            }
-        }
-        List<String> list02 = new ArrayList<>(List.copyOf(list2));
-        for (int i = 0; i < 17; i++) {
-            list02.add(list02.get(i));
-        }
-        List<String> joinedList = new ArrayList<>();
-        joinedList.addAll(list00);
-        joinedList.addAll(list01);
-        joinedList.addAll(list02);
+        List<String> joinedList = new ArrayList<>(Tiles.allTiles());
         if (placementSequence.length() != 0) {
             for (int i = 0; i <= placementSequence.length() - 6; i += 6) {
                 joinedList.remove(placementSequence.substring(i, i + 4));
@@ -535,15 +512,25 @@ public class Metro {
         List<String> position = Coordinates.placedCoordinates(placementSequence);
         List<Integer> positionNum = Coordinates.coordinatesAsNumbers(placementSequence);
         for (int i = 0; i < position.size(); i++) {
-            if (position.get(i).equals("33") || position.get(i).equals("34") || position.get(i).equals("43") || position.get(i).equals("44"))
+            String coordinate1 = position.get(i);
+            if (coordinate1.equals("33") || coordinate1.equals("34") || coordinate1.equals("43") || coordinate1.equals("44"))
                 return false;
             for (int j = position.size() - 1; j > i; j--) {
-                if (position.get(i).equals(position.get(j))) return false;
+                String coordinate2 = position.get(j);
+                if (coordinate1.equals(coordinate2)) return false;
             }
-            if ((positionNum.get(i) >= 11 && positionNum.get(i) <= 16) || (positionNum.get(i) >= 21 && positionNum.get(i) <= 26) || (positionNum.get(i) >= 31 && positionNum.get(i) <= 36) ||
-                    (positionNum.get(i) >= 41 && positionNum.get(i) <= 46) || (positionNum.get(i) >= 51 && positionNum.get(i) <= 56) || (positionNum.get(i) >= 61 && positionNum.get(i) <= 66)) {
-                if (!positionNum.subList(0,i).contains(positionNum.get(i) + 1) && !positionNum.subList(0,i).contains(positionNum.get(i) - 1) && !positionNum.subList(0,i).contains(positionNum.get(i) + 10) &&
-                        !positionNum.subList(0,i).contains(positionNum.get(i) - 10)) return false;
+            Integer coordinateNum = positionNum.get(i);
+            List<Integer> previousCoordinates = positionNum.subList(0,i);
+            if ((coordinateNum >= 11 && coordinateNum <= 16) ||
+                    (coordinateNum >= 21 && coordinateNum <= 26) ||
+                    (coordinateNum >= 31 && coordinateNum <= 36) ||
+                    (coordinateNum >= 41 && coordinateNum <= 46) ||
+                    (coordinateNum >= 51 && coordinateNum <= 56) ||
+                    (coordinateNum >= 61 && coordinateNum <= 66)) {
+                if (!previousCoordinates.contains(coordinateNum + 1) &&
+                        !previousCoordinates.contains(coordinateNum - 1) &&
+                        !previousCoordinates.contains(coordinateNum + 10) &&
+                        !previousCoordinates.contains(coordinateNum - 10)) return false;
             }
         }
         List<Integer> allPositionNum = new ArrayList<>();
@@ -552,52 +539,59 @@ public class Metro {
         }
         List<String> tile = Tiles.placedTiles(placementSequence);
         for (int i = 0; i < position.size(); i++) {
-            List<Integer> initialCoord = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 10, 20, 30, 40, 50, 60, 70, 17, 27, 37, 47, 57, 67, 71, 72, 73, 74, 75, 76, 77));
+            char first = tile.get(i).charAt(0);
+            char second = tile.get(i).charAt(1);
+            char third = tile.get(i).charAt(2);
+            char fourth = tile.get(i).charAt(3);
+            char row = position.get(i).charAt(0);
+            char column = position.get(i).charAt(1);
+            String coordinate = position.get(i);
+            List<Integer> initialCoord = new ArrayList<>(Coordinates.surroundingCoord);
             if (i != 0) {
                 for (int j = 0; j < i; j++) {
-                    initialCoord.addAll(Arrays.asList(Integer.parseInt(position.get(j)) + 1, Integer.parseInt(position.get(j)) - 1,
-                            Integer.parseInt(position.get(j)) + 10, Integer.parseInt(position.get(j)) - 10));
+                    initialCoord.addAll(Arrays.asList(positionNum.get(j) + 1, positionNum.get(j) - 1,
+                            positionNum.get(j) + 10, positionNum.get(j) - 10));
                     initialCoord.retainAll(allPositionNum);
                 }
                 for (int j = 0; j < i; j++) {
-                    while (initialCoord.contains(Integer.valueOf(position.get(j)))) {
-                        initialCoord.remove(Integer.valueOf(position.get(j)));
+                    while (initialCoord.contains(positionNum.get(j))) {
+                        initialCoord.remove(positionNum.get(j));
                     }
                 }
                 initialCoord = initialCoord.stream().distinct().collect(Collectors.toList());
             }
-            if (tile.get(i).charAt(0) == 'd') {
-                initialCoord.removeAll(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7));
+            if (first == 'd') {
+                initialCoord.removeAll(Coordinates.topCoord);
             }
-            if (tile.get(i).charAt(1) == 'd') {
-                initialCoord.removeAll(Arrays.asList(7, 17, 27, 37, 47, 57, 67, 77));
+            if (second == 'd') {
+                initialCoord.removeAll(Coordinates.rightCoord);
             }
-            if (tile.get(i).charAt(2) == 'd') {
-                initialCoord.removeAll(Arrays.asList(70, 71, 72, 73, 74, 75, 76, 77));
+            if (third == 'd') {
+                initialCoord.removeAll(Coordinates.bottomCoord);
             }
-            if (tile.get(i).charAt(3) == 'd') {
-                initialCoord.removeAll(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70));
+            if (fourth == 'd') {
+                initialCoord.removeAll(Coordinates.leftCoord);
             }
-            if (tile.get(i).charAt(0) == 'b' || tile.get(i).charAt(1) == 'c') {
+            if (first == 'b' || second == 'c') {
                 initialCoord.removeAll(Collections.singletonList(7));
             }
-            if (tile.get(i).charAt(0) == 'c' || tile.get(i).charAt(3) == 'b') {
+            if (first == 'c' || fourth == 'b') {
                 initialCoord.removeAll(Collections.singletonList(0));
             }
-            if (tile.get(i).charAt(2) == 'b' || tile.get(i).charAt(3) == 'c') {
+            if (third == 'b' || fourth == 'c') {
                 initialCoord.removeAll(Collections.singletonList(70));
             }
-            if (tile.get(i).charAt(1) == 'b' || tile.get(i).charAt(2) == 'c') {
+            if (second == 'b' || third == 'c') {
                 initialCoord.removeAll(Collections.singletonList(77));
             }
-            if ((tile.get(i).charAt(0) == 'd' && position.get(i).charAt(0) == '0') ||
-                    (tile.get(i).charAt(1) == 'd' && position.get(i).charAt(1) == '7') ||
-                    (tile.get(i).charAt(2) == 'd' && position.get(i).charAt(0) == '7') ||
-                    (tile.get(i).charAt(3) == 'd' && position.get(i).charAt(1) == '0') ||
-                    (tile.get(i).charAt(0) == 'b' && position.get(i).equals("07")) || (tile.get(i).charAt(1) == 'c' && position.get(i).equals("07")) ||
-                    (tile.get(i).charAt(3) == 'b' && position.get(i).equals("00")) || (tile.get(i).charAt(0) == 'c' && position.get(i).equals("00")) ||
-                    (tile.get(i).charAt(2) == 'b' && position.get(i).equals("70")) || (tile.get(i).charAt(3) == 'c' && position.get(i).equals("70")) ||
-                    (tile.get(i).charAt(1) == 'b' && position.get(i).equals("77")) || (tile.get(i).charAt(2) == 'c' && position.get(i).equals("77"))) {
+            if ((first == 'd' && row == '0') ||
+                    (second == 'd' && column == '7') ||
+                    (third == 'd' && row == '7') ||
+                    (fourth == 'd' && column == '0') ||
+                    (first == 'b' && coordinate.equals("07")) || (second == 'c' && coordinate.equals("07")) ||
+                    (fourth == 'b' && coordinate.equals("00")) || (first == 'c' && coordinate.equals("00")) ||
+                    (third == 'b' && coordinate.equals("70")) || (fourth == 'c' && coordinate.equals("70")) ||
+                    (second == 'b' && coordinate.equals("77")) || (third == 'c' && coordinate.equals("77"))) {
                 if (initialCoord.size() > 0) return false;
             }
         }

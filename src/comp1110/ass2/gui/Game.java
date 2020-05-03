@@ -1,6 +1,7 @@
 package comp1110.ass2.gui;
 
 import comp1110.ass2.Metro;
+import comp1110.ass2.Tiles;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -227,11 +228,11 @@ public class Game extends Application {
 
     private void makeDraggableTiles() {
         draggable_tiles.getChildren().clear();
-        for (String s : Metro.list0)
+        for (String s : Tiles.fourTiles)
             draggable_tiles.getChildren().add(new Tile(s));
-        for (String s : Metro.list1)
+        for (String s : Tiles.threeTiles)
             draggable_tiles.getChildren().add(new Tile(s));
-        for (String s : Metro.list2)
+        for (String s : Tiles.twoTiles)
             draggable_tiles.getChildren().add(new Tile(s));
         draggable_tiles.toFront();
     }
@@ -245,12 +246,12 @@ public class Game extends Application {
     private void makeCounters() {
         tiles_counter.getChildren().clear();
         Text counter;
-        for (String s : Metro.list0) remain_tiles.put(s, 4);
-        for (String s : Metro.list1) remain_tiles.put(s, 3);
-        for (String s : Metro.list2) remain_tiles.put(s, 2);
-        TILES_ORDER.addAll(Metro.list0);
-        TILES_ORDER.addAll(Metro.list1);
-        TILES_ORDER.addAll(Metro.list2);
+        for (String s : Tiles.fourTiles) remain_tiles.put(s, 4);
+        for (String s : Tiles.threeTiles) remain_tiles.put(s, 3);
+        for (String s : Tiles.twoTiles) remain_tiles.put(s, 2);
+        TILES_ORDER.addAll(Tiles.fourTiles);
+        TILES_ORDER.addAll(Tiles.threeTiles);
+        TILES_ORDER.addAll(Tiles.twoTiles);
         for (int k = 0, i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
                 counter = new Text("" + remain_tiles.get(TILES_ORDER.get(k++)));
