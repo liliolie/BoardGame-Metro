@@ -15,6 +15,7 @@ Line 1 to Line 38
 
 4. Tiles Class
 Line 22 to Line 78
+Line 81 to Line 92
 
 5. Coordinates Class
 Line 19 to Line 23

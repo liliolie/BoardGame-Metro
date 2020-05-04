@@ -3,6 +3,8 @@ package comp1110.ass2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Tiles {
     public final static List<String> fourTiles = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"); //5
@@ -74,5 +76,18 @@ public class Tiles {
             }
         }
         return false;
+    }
+
+    public static List<Integer> tilesCount(String placement, List<String> tilesList){
+        List<Integer> intList = new ArrayList<>(5);
+        int[] num = new int[tilesList.size()];
+        for (int i = 0; i < tilesList.size(); i++) {
+            Matcher matcher = Pattern.compile(tilesList.get(i)).matcher(placement);
+            while (matcher.find()) {
+                num[i]++;
+            }
+            intList.add(num[i]);
+        }
+        return intList;
     }
 }

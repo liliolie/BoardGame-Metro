@@ -490,37 +490,9 @@ public class Metro {
 
         //  Method 2
         // Count how many times the substring appears in the larger string
-        String[] list0 = {"aacb", "cbaa", "acba", "baac", "aaaa"};
-        List<Integer> intList0 = new ArrayList<>(5);
-        int[] num = {0, 0, 0, 0, 0};
-        for (int i = 0; i < list0.length; i++) {
-            Matcher matcher = Pattern.compile(list0[i]).matcher(placement);
-            while (matcher.find()) {
-                num[i]++;
-            }
-            intList0.add(num[i]);
-        }
-        String[] list1 = {"cbcb", "bcbc"};
-        List<Integer> intList1 = new ArrayList<>(2);
-        int[] num1 = {0, 0};
-        for (int i = 0; i < list1.length; i++) {
-            Matcher matcher = Pattern.compile(list1[i]).matcher(placement);
-            while (matcher.find()) {
-                num1[i]++;
-            }
-            intList1.add(num1[i]);
-        }
-        String[] list2 = {"cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb",
-                "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"};
-        List<Integer> intList2 = new ArrayList<>(17);
-        int[] num2 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        for (int i = 0; i < list2.length; i++) {
-            Matcher matcher = Pattern.compile(list2[i]).matcher(placement);
-            while (matcher.find()) {
-                num2[i]++;
-            }
-            intList2.add(num2[i]);
-        }
+        List<Integer> intList0 = Tiles.tilesCount(placement, Tiles.fourTiles);
+        List<Integer> intList1 = Tiles.tilesCount(placement, Tiles.threeTiles);
+        List<Integer> intList2 = Tiles.tilesCount(placement, Tiles.twoTiles);
         if (placement.length() % 6 == 0) {
             for (int i = 0; i < placement.length() - 6; i += 6) {
                 if (!(isPiecePlacementWellFormed(placement.substring(i, i + 6)))) {
