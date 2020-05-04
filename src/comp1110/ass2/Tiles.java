@@ -14,6 +14,7 @@ public class Tiles {
     public final static List<String> allKinds = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa", "cbcb", "bcbc",
             "cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb",
             "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"); //24
+
     public static List<String> placedTiles(String placementSequence) {
         String tilesString = placementSequence.replaceAll("([0-7][0-7])", ",");
         String[] tilesArray = tilesString.split(",");
@@ -21,6 +22,7 @@ public class Tiles {
         tilesList.remove("");
         return tilesList;
     }
+
     public static List<String> allTiles(){
         List<String> list00 = new ArrayList<>(List.copyOf(fourTiles));
         for (int i = 0; i < 5; i++) {
