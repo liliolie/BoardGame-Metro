@@ -21,6 +21,8 @@ Line 81 to Line 92
 Line 19 to Line 23
 
 6. Metro Class
+Line 493 to Line 495
+Line 520
 Line 548 to Line 562
 Line 641 to Line 709
 
