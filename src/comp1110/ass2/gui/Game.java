@@ -189,7 +189,7 @@ public class Game extends Application {
                 x = (int) Math.round((getLayoutX() - MARGIN_X) / (SQUARE_SIZE + 0.0f));
                 y = (int) Math.round((getLayoutY() - MARGIN_Y) / (SQUARE_SIZE + 0.0f));
                 //System.out.println(x + " " + y);
-                String put_str = placement + type + (x - 1) + (y - 1);
+                String put_str = placement + type + (y - 1) + (x - 1);
                 System.out.println(put_str);
                 if (!Metro.isPlacementSequenceValid(put_str)) {
                     setLayoutX(homeX);
