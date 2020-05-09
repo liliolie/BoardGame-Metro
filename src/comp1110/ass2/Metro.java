@@ -610,7 +610,7 @@ public class Metro {
 
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
-        if (placementSequence.length() == 0) return true;
+        if (placementSequence.length() == 0||!isPlacementSequenceWellFormed(placementSequence)) return true;
         List<String> position = Coordinates.placedCoordinates(placementSequence);
         List<Integer> positionNum = Coordinates.coordinatesAsNumbers(placementSequence);
         if (Tiles.overlapTiles(placementSequence)) return false;

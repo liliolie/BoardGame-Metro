@@ -245,6 +245,7 @@ public class Game extends Application {
 
     private void makeCounters() {
         tiles_counter.getChildren().clear();
+        txt_cnts.clear();
         Text counter;
         for (String s : Tiles.fourTiles) remain_tiles.put(s, 4);
         for (String s : Tiles.threeTiles) remain_tiles.put(s, 3);
@@ -286,7 +287,7 @@ public class Game extends Application {
             img.setLayoutY(MARGIN_Y - 5 + (placement.charAt(i + 4) - '0' + 1) * SQUARE_SIZE);
             board_imgs.getChildren().add(img);
         }
-        root.getChildren().add(board_imgs);
+
     }
 
     private void makeStations() {
@@ -400,9 +401,11 @@ public class Game extends Application {
         bgimage.setFitHeight(VIEWER_HEIGHT);
         bgimage.setOpacity(0.66);
 
+        root.getChildren().addAll(controls, draggable_tiles, tiles_counter);
         root.getChildren().add(board);
         root.getChildren().add(canvas);
         root.getChildren().add(bgimage);
+        root.getChildren().add(board_imgs);
     }
 
     public void drawLines(GraphicsContext gc) {
@@ -517,6 +520,7 @@ public class Game extends Application {
                 makePlacement("");
                 makeDraggableTiles();
                 makeCounters();
+                placement = "";
                 event.consume();
             } else if (event.getCode() == KeyCode.Q) {
                 // exit game
@@ -530,7 +534,7 @@ public class Game extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("FocusGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
-        root.getChildren().addAll(controls, draggable_tiles, tiles_counter);
+
         setUpHotKeys(scene);
         makeControls();
         makeBoard();
