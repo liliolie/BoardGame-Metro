@@ -24,7 +24,7 @@ component:
 
 # Write a list of review comments here.
 #
-comments:
+comments: the following
   - These codes are clean and well-formatted. The proficient use of the matcher method makes the checking whether given
   - substring (tiles) matches a given regex easier. Also, Array List is frequently used throughout these code, which makes
   - our tile list more flexible and easy to grow and remove. These codes are quite important for the implementation of the

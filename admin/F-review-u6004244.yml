@@ -19,7 +19,7 @@ component:
 
 # Write a list of review comments here.
 #
-comments:
+comments: the following
   - The best features of this code is that it takes advantage of various methods from other classes, to help create lists
   -  of tile strings and coordinate integers. Second, it uses List to make the placementSequence String easy to manipulate.
   - Third, it thoroughly considers all the special circumstances like "dddd00" to check if a tile in the placemenSequence
@@ -32,7 +32,7 @@ comments:
   - The program decomposition is appropriate, because it has a clear structure that it checks step by step the conditions
   -  provided in the task description, e.g. overlaping, adjacency, etc. In addition, it reduce the code length by creating
   - helping methods in other classes to make the code concise and easy to understand.
-  - 
+  -
   - The methods in each class as well as all the variables are properly named and consistent throughout the method, which
   - follow the pattern "lowercaseUppercaseFirstLetter". Also, we can easily tell from the variable names what the author
   - is refering to.
