@@ -610,16 +610,28 @@ public class Metro {
 
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
+        //If the placementSequence is not well formed, return false.
         if (!isPlacementSequenceWellFormed(placementSequence)) return false;
+        //A placementSequence is valid if it is empty.
         if (placementSequence.length() == 0) return true;
+        //Use the method in the Coordinates class to creat a list of strings with each string as a
+        // coordinate of each tile in the placementSequence.
         List<String> position = Coordinates.placedCoordinates(placementSequence);
+        //Use the method in the Coordinates class to creat a list of integers with each integer as a
+        // coordinate of each tile in the placementSequence.
         List<Integer> positionNum = Coordinates.coordinatesAsNumbers(placementSequence);
+        //Use the method in the Tiles class to check if there is a tile that overlap another tile,
+        // or any one of the center stations.
         if (Tiles.overlapTiles(placementSequence)) return false;
+        //Use the method in the Tiles class to check if a tile is placed to continue or complete an existing track.
         if (Tiles.noAdjacentTiles(placementSequence)) return false;
+        //Creat a list of integers with each element as a coordinate of the board.
         List<Integer> allPositionNum = new ArrayList<>();
         for (String e : Coordinates.allCoordinates) {
             allPositionNum.add(Integer.valueOf(e));
         }
+        //Use the method in the Tiles class to creat a list of strings with each string as a
+        // tile in the placementSequence.
         List<String> tile = Tiles.placedTiles(placementSequence);
         for (int i = 0; i < position.size(); i++) {
             char first = tile.get(i).charAt(0);
@@ -629,7 +641,12 @@ public class Metro {
             char row = position.get(i).charAt(0);
             char column = position.get(i).charAt(1);
             String coordinate = position.get(i);
+            //Creat a list of integer with each integer as a coordinate of the surrounding of the board.
             List<Integer> initialCoord = new ArrayList<>(Coordinates.surroundingCoord);
+            //For the first tile in the placementSequence, it can be only placed on a coordinate
+            // of the surrounding of the board.
+            //Otherwise, it can be placed on a coordinate of the surrounding of the board and a coordinate
+            // that is enabled by the previous tile(s).
             if (i != 0) {
                 for (int j = 0; j < i; j++) {
                     initialCoord.addAll(Arrays.asList(positionNum.get(j) + 1, positionNum.get(j) - 1,
@@ -643,30 +660,50 @@ public class Metro {
                 }
                 initialCoord = initialCoord.stream().distinct().collect(Collectors.toList());
             }
+            //If the first character of the tile is 'd', it cannot be placed on the top row
+            // of the board.
             if (first == 'd') {
                 initialCoord.removeAll(Coordinates.topCoord);
             }
+            //If the second character of the tile is 'd', it cannot be placed on the right column
+            // of the board.
             if (second == 'd') {
                 initialCoord.removeAll(Coordinates.rightCoord);
             }
+            //If the third character of the tile is 'd', it cannot be placed on the bottom row
+            // of the board.
             if (third == 'd') {
                 initialCoord.removeAll(Coordinates.bottomCoord);
             }
+            //If the fourth character of the tile is 'd', it cannot be placed on the left column
+            // of the board.
             if (fourth == 'd') {
                 initialCoord.removeAll(Coordinates.leftCoord);
             }
+            //If the first character of the tile is 'b' or the second character of the tile is 'c',
+            // it cannot be placed on the top right corner of the board.
             if (first == 'b' || second == 'c') {
                 initialCoord.removeAll(Collections.singletonList(7));
             }
+            //If the first character of the tile is 'c' or the fourth character of the tile is 'b',
+            // it cannot be placed on the top left corner of the board.
             if (first == 'c' || fourth == 'b') {
                 initialCoord.removeAll(Collections.singletonList(0));
             }
+            //If the third character of the tile is 'b' or the fourth character of the tile is 'c',
+            // it cannot be placed on the bottom left corner of the board.
             if (third == 'b' || fourth == 'c') {
                 initialCoord.removeAll(Collections.singletonList(70));
             }
+            //If the second character of the tile is 'b' or the third character of the tile is 'c',
+            // it cannot be placed on the bottom right corner of the board.
             if (second == 'b' || third == 'c') {
                 initialCoord.removeAll(Collections.singletonList(77));
             }
+            //If a tile in the placementSequence contains 'b', 'c', and 'd', check if there is any
+            // coordinates other than the ones of the surrounding of the board available for this tile.
+            //Return false if this tile is able to be placed elsewhere but is placed on a place it
+            // should not be placed.
             if ((first == 'd' && row == '0') ||
                     (second == 'd' && column == '7') ||
                     (third == 'd' && row == '7') ||
