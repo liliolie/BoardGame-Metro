@@ -13,9 +13,9 @@ author:
 # Write the class or method being reviewed here.
 #
 component:
-  Class: Metro
-  Method: isPlacementSequenceValid
-  Line: 611 - 719
+  Class, Metro
+  Method, isPlacementSequenceValid
+  Line, 611 - 719
 
 # Write a list of review comments here.
 #
