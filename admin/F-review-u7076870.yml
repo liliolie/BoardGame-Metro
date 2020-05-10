@@ -38,5 +38,5 @@ comments:
     player places a tile on the board, because "isPlacementValid" is capsulated in Metro.class very well, so it can
     be a reference whenever we need to check the validation of a placementSequence.
 
-  -In task 7, the author removes the first invalid case from the loop, so it can help to lower redundancy,
-   making code more efficient.
+  - In task 7, the author removes the first invalid case from the loop, so it can help to lower redundancy,
+    making code more efficient.
