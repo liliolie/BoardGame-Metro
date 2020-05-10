@@ -19,7 +19,7 @@ component:
 
 # Write a list of review comments here.
 #
-comments: 
+comments:
   - The best features of this code is that it takes advantage of various methods from other classes, to help create lists
   -  of tile strings and coordinate integers. Second, it uses List to make the placementSequence String easy to manipulate.
   - Third, it thoroughly considers all the special circumstances like "dddd00" to check if a tile in the placemenSequence

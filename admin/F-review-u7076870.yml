@@ -17,6 +17,7 @@ component: Metro.class Line 692- 805/getNextExit method; Game.class
 # Write a list of review comments here.
 #
 comments:
+  -
   - Naming, In Task 7, the author uses a clear method name to help me understand what he does in his function.
   - For example, "getNextExit" method clearly indicates its functionality, which returns exit gate number 0-8.
   -  It also follows the Java code conventions.
