@@ -7,17 +7,23 @@ reviewer:
 # Write the name of the author of the code here.
 #
 author:
-  name:
-  uid:
+  name: Chan Xu
+  uid: u7076870
 
 # Write the class or method being reviewed here.
 #
 component:
+  Class: Metro
+  Method: isPlacementSequenceValid
+  Line: 611 - 719
 
 # Write a list of review comments here.
 #
 comments:
-  -
-
-
-
+  -The best features of this code is that
+#  What are the best features of this code?
+#  Is the code well-documented?
+#  Is the program decomposition (class and method structure) appropriate?
+#  Does it follow Java code conventions (for example, are methods and variables properly named), and is the style consistent throughout?
+#  If you suspect an error in the code, suggest a particular situation in which the program will not function correctly.
+#
