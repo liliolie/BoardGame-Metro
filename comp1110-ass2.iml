@@ -38,7 +38,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="lib" level="application" />
     <orderEntry type="library" name="JavaFX.11" level="application" />
+    <orderEntry type="library" name="javafx-sdk-13.0" level="application" />
+    <orderEntry type="library" name="lib" level="application" />
   </component>
 </module>
