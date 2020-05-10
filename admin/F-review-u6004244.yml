@@ -20,10 +20,17 @@ component:
 # Write a list of review comments here.
 #
 comments:
-  -The best features of this code is that
-#  What are the best features of this code?
-#  Is the code well-documented?
-#  Is the program decomposition (class and method structure) appropriate?
-#  Does it follow Java code conventions (for example, are methods and variables properly named), and is the style consistent throughout?
-#  If you suspect an error in the code, suggest a particular situation in which the program will not function correctly.
-#
+  -The best features of this code is that it takes advantage of various methods from other classes, to help create lists
+   of tile strings and coordinate integers. Second, it uses List to make the placementSequence String easy to manipulate.
+   Third, it thoroughly considers all the special circumstances like "dddd00" to check if a tile in the placemenSequence
+   is in a valid coordinate. Finally, it smartly converts the coordinate strings into integers so that they can be easily
+   conduct arithmetic operations.
+  -This code is well-documented that every part in this method is provided with detailed explanation. Others can easily
+   understand what each part does in this code.
+  -The program decomposition is appropriate, because it has a clear structure that it checks step by step the conditions
+   provided in the task description, e.g. overlaping, adjacency, etc. In addition, it reduce the code length by creating
+   helping methods in other classes to make the code concise and easy to understand.
+  -The methods in each class as well as all the variables are properly named and consistent throughout the method, which
+   follow the pattern "lowercaseUppercaseFirstLetter". Also, we can easily tell from the variable names what the author
+   is refering to.
+  -I currently cannot an error in the code.

@@ -13,11 +13,34 @@ author:
 # Write the class or method being reviewed here.
 #
 component:
+  Metro.Class
+
+  ethod：isPiecePlacementWellFormed
+  Lines 415-436
+  Method ：isPlacementSequenceWellFormed(String placement)
+  Lines 493 – 504
+  Method：drawFromDeck
+  Lines 535 - 591
 
 # Write a list of review comments here.
 #
 comments:
-  -
+  -These codes are clean and well-formatted. The proficient use of the matcher method makes the checking whether given
+   substring (tiles) matches a given regex easier. Also, Array List is frequently used throughout these code, which makes
+   our tile list more flexible and easy to grow and remove. These codes are quite important for the implementation of the
+   metro game.
+
+  -The code is also well-documented. For example, for the task 5 method 2 (e.g., Line 535 – 591 the comments are concise
+   and well summarized what those three parts of codes are for creating total tiles list, remove the tiles from all hands
+   and random a tile from leftover list). This is helpful for our team members or other readers to understand the code
+   and the further optimizing of our code structure.
+
+  -The variables are well named and easy to read, and the name style is consistent throughout the code.
+
+  -There is no error in the code. There are some duplicates codes throughout the code, which is generated the tile list
+   two times. As the tile lists are used in all the task3, task4 and task5, we optimized this part by subtracted these
+   codes into the new Class Tiles, which makes code more cleaner now.
+
 
 
 
