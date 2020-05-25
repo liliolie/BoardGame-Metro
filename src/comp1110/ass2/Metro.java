@@ -413,7 +413,7 @@ public class Metro {
 
     public static boolean isPiecePlacementWellFormed(String piecePlacement) {
         // FIXME Task 2: determine whether a piece placement is well-formed
-        //  Method 1
+        //  Method 1 Authored by Chan Xu, u7076870
         return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
     }
     //  Method 2
@@ -451,7 +451,7 @@ public class Metro {
      */
     public static boolean isPlacementSequenceWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement sequence is well-formed
-        // Method 1
+        //  Method 1 Authored by Chan Xu, u7076870
 //        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
 //        int cbcb = 0; int bcbc = 0;
 //        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
@@ -516,7 +516,7 @@ public class Metro {
      */
     public static String drawFromDeck(String placementSequence, String totalHands) {
         // FIXME Task 5: draw a random tile from the deck
-        // Method 1
+        //  Method 1 Authored by Chan Xu, u7076870
         List<String> joinedList = new ArrayList<>(Tiles.allTiles());
         if (placementSequence.length() != 0) {
             for (int i = 0; i <= placementSequence.length() - 6; i += 6) {
@@ -532,7 +532,7 @@ public class Metro {
         int index = rand.nextInt(joinedList.size());
         return joinedList.get(index);
     }
-    //  Method 2
+        //  Method 2
     // Create total tiles list
 //        List<String> repeatList0 = new ArrayList<>();
 //        List<String> repeatList1 = new ArrayList<>();
@@ -610,6 +610,7 @@ public class Metro {
 
     public static boolean isPlacementSequenceValid(String placementSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
+        //  Authored by Chan Xu, u7076870
         //If the placementSequence is not well formed, return false.
         if (!isPlacementSequenceWellFormed(placementSequence)) return false;
         //A placementSequence is valid if it is empty.
@@ -723,6 +724,7 @@ public class Metro {
      */
     public static int[] getScore(String placementSequence, int numberOfPlayers) {
         // FIXME Task 7: determine the current score for the game
+        //  Authored by Xikang Song, u6486892
         int[] res = new int[numberOfPlayers];
         int[] s = new int[32];
         String str;
@@ -846,6 +848,7 @@ public class Metro {
      */
     public static String generateMove(String placementSequence, String piece, int numberOfPlayers) {
         // FIXME Task 9: generate a valid move
+        //  Authored by Xikang Song, u6486892
         String res = "";
         A:
         for (int j, i = 0; i < 8; i++)
