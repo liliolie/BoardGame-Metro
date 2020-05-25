@@ -490,9 +490,9 @@ public class Metro {
 
         //  Method 2
         // Count how many times the substring appears in the larger string
-        List<Integer> intList0 = Tiles.tilesCount(placement, Tiles.fourTiles);
-        List<Integer> intList1 = Tiles.tilesCount(placement, Tiles.threeTiles);
-        List<Integer> intList2 = Tiles.tilesCount(placement, Tiles.twoTiles);
+        List<Integer> intList0 = Tiles.tilesCount(placement, TilesEnum.Four.getTiles());
+        List<Integer> intList1 = Tiles.tilesCount(placement, TilesEnum.Three.getTiles());
+        List<Integer> intList2 = Tiles.tilesCount(placement, TilesEnum.Two.getTiles());
         if (placement.length() % 6 == 0) {
             for (int i = 0; i < placement.length() - 6; i += 6) {
                 if (!(isPiecePlacementWellFormed(placement.substring(i, i + 6)))) {
@@ -625,11 +625,6 @@ public class Metro {
         if (Tiles.overlapTiles(placementSequence)) return false;
         //Use the method in the Tiles class to check if a tile is placed to continue or complete an existing track.
         if (Tiles.noAdjacentTiles(placementSequence)) return false;
-        //Creat a list of integers with each element as a coordinate of the board.
-        List<Integer> allPositionNum = new ArrayList<>();
-        for (String e : Coordinates.allCoordinates) {
-            allPositionNum.add(Integer.valueOf(e));
-        }
         //Use the method in the Tiles class to creat a list of strings with each string as a
         // tile in the placementSequence.
         List<String> tile = Tiles.placedTiles(placementSequence);
@@ -642,7 +637,7 @@ public class Metro {
             char column = position.get(i).charAt(1);
             String coordinate = position.get(i);
             //Creat a list of integer with each integer as a coordinate of the surrounding of the board.
-            List<Integer> initialCoord = new ArrayList<>(Coordinates.surroundingCoord);
+            List<Integer> initialCoord = new ArrayList<>(CoordinatesEnum.Surround.getCoordinates());
             //For the first tile in the placementSequence, it can be only placed on a coordinate
             // of the surrounding of the board.
             //Otherwise, it can be placed on a coordinate of the surrounding of the board and a coordinate
@@ -651,7 +646,7 @@ public class Metro {
                 for (int j = 0; j < i; j++) {
                     initialCoord.addAll(Arrays.asList(positionNum.get(j) + 1, positionNum.get(j) - 1,
                             positionNum.get(j) + 10, positionNum.get(j) - 10));
-                    initialCoord.retainAll(allPositionNum);
+                    initialCoord.retainAll(CoordinatesEnum.All.getCoordinates());
                 }
                 for (int j = 0; j < i; j++) {
                     while (initialCoord.contains(positionNum.get(j))) {
@@ -663,22 +658,22 @@ public class Metro {
             //If the first character of the tile is 'd', it cannot be placed on the top row
             // of the board.
             if (first == 'd') {
-                initialCoord.removeAll(Coordinates.topCoord);
+                initialCoord.removeAll(CoordinatesEnum.Top.getCoordinates());
             }
             //If the second character of the tile is 'd', it cannot be placed on the right column
             // of the board.
             if (second == 'd') {
-                initialCoord.removeAll(Coordinates.rightCoord);
+                initialCoord.removeAll(CoordinatesEnum.Right.getCoordinates());
             }
             //If the third character of the tile is 'd', it cannot be placed on the bottom row
             // of the board.
             if (third == 'd') {
-                initialCoord.removeAll(Coordinates.bottomCoord);
+                initialCoord.removeAll(CoordinatesEnum.Bottom.getCoordinates());
             }
             //If the fourth character of the tile is 'd', it cannot be placed on the left column
             // of the board.
             if (fourth == 'd') {
-                initialCoord.removeAll(Coordinates.leftCoord);
+                initialCoord.removeAll(CoordinatesEnum.Left.getCoordinates());
             }
             //If the first character of the tile is 'b' or the second character of the tile is 'c',
             // it cannot be placed on the top right corner of the board.
@@ -812,7 +807,7 @@ public class Metro {
 
     protected static int getNextExit(String tile, int entry) {
         if (entry < 0 || entry > 7) return -1;
-        if (!Tiles.allKinds.contains(tile)) return -1;
+        if (!TilesEnum.All.getTiles().contains(tile)) return -1;
         if (entry % 2 == 0)
             switch (tile.charAt(entry / 2)) {
                 case 'a':

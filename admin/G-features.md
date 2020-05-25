@@ -3,10 +3,10 @@ of our project implements the following features:
 
 *(Remove those that are unimplemented)*
 
- - A simple placement viewer (Task 4)
- - A basic playable game
- - A basic playable game that snaps pieces to the board and checks for validity (Task 9)
- - Computes a score for the game (Task 8)
+ X A simple placement viewer (Task 4)
+ X A basic playable game
+ X A basic playable game that snaps pieces to the board and checks for validity (Task 9)
+ X Computes a score for the game (Task 8)
  - Playable against a computer opponent (Task 11)
 
 additional features...

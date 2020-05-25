@@ -1,3 +1,6 @@
+/**
+ Class Tiles is authored by Chan Xu, u7076870
+ */
 package comp1110.ass2;
 
 import java.util.ArrayList;
@@ -7,13 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Tiles {
-    public final static List<String> fourTiles = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa"); //5
-    public final static List<String> threeTiles = Arrays.asList("cbcb", "bcbc"); //2
-    public final static List<String> twoTiles = Arrays.asList("cccc", "bbbb", "dacc", "cdac", "ccda",
-            "accd", "dbba", "adbb", "badb", "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"); //17
-    public final static List<String> allKinds = Arrays.asList("aacb", "cbaa", "acba", "baac", "aaaa", "cbcb", "bcbc",
-            "cccc", "bbbb", "dacc", "cdac", "ccda", "accd", "dbba", "adbb", "badb",
-            "bbad", "ddbc", "cddb", "bcdd", "dbcd", "adad", "dada", "dddd"); //24
 
     public static List<String> placedTiles(String placementSequence) {
         String tilesString = placementSequence.replaceAll("([0-7][0-7])", ",");
@@ -24,19 +20,19 @@ public class Tiles {
     }
 
     public static List<String> allTiles(){
-        List<String> list00 = new ArrayList<>(List.copyOf(fourTiles));
+        List<String> list00 = new ArrayList<>(List.copyOf(TilesEnum.Four.getTiles()));
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
                 list00.add(list00.get(i));
             }
         }
-        List<String> list01 = new ArrayList<>(List.copyOf(threeTiles));
+        List<String> list01 = new ArrayList<>(List.copyOf(TilesEnum.Three.getTiles()));
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 list01.add(list01.get(i));
             }
         }
-        List<String> list02 = new ArrayList<>(List.copyOf(twoTiles));
+        List<String> list02 = new ArrayList<>(List.copyOf(TilesEnum.Two.getTiles()));
         for (int i = 0; i < 17; i++) {
             list02.add(list02.get(i));
         }
