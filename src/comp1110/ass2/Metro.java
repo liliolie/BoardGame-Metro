@@ -337,6 +337,38 @@ import java.util.stream.Stream;
  * @return return true when game is over
  * public static boolean isGameOver(String placementSequence,String hand) {
  * return true;
+ * <p>
+ * Difficulty level slider
+ * <p>
+ * the player will choose difficulty level from level 1 to level 3
+ * <p>
+ * The number of opponents slider
+ * <p>
+ * the player will choose opponents number from 1 to 5
+ * <p>
+ * Add a method to display potential moves
+ * <p>
+ * when it is the player's turn
+ * display all the valid moves as partially transparent pieces
+ * the player click one of the partially transparent pieces to make their move
+ * <p>
+ * message on completion
+ * <p>
+ * Add a method to define difficulty levels
+ * <p>
+ * The method should include difficulty level from the level 1 to level 3
+ * <p>
+ * Construct a game for a given level of difficulty, given number of players
+ * <p>
+ * This creates a new instance of the game at the given level of difficulty and number of players
+ * <p>
+ * Add a method to detect if the game is over
+ * <p>
+ * Given a placement sequence string, detect when game is over
+ * when all the pieces have been placed, The games is over
+ * @return return true when game is over
+ * public static boolean isGameOver(String placementSequence,String hand) {
+ * return true;
  */
 
 /**
@@ -416,11 +448,11 @@ public class Metro {
         //  Method 1 Authored by Chan Xu, u7076870
         return piecePlacement.matches("[a-d][a-d][a-d][a-d][0-7][0-7]");
     }
-    //  Method 2
+    //  Method 2 Authored by Lily Chen, u6004244
 //        Pattern pattern = Pattern.compile("[a-d][a-d][a-d][a-d][0-7][0-7]");
 //        Matcher matcher = pattern.matcher(piecePlacement);
 //        return matcher.matches();
-    //  Method 3
+    //  Method 3 Authored by Lily Chen, u6004244
 //        if (piecePlacement.length() == 6) {
 //            for (int i = 0; i < piecePlacement.length() - 2; i++) {
 //                if (!(piecePlacement.charAt(i) >= 'a' && piecePlacement.charAt(i) <= 'd')) {
@@ -451,7 +483,22 @@ public class Metro {
      */
     public static boolean isPlacementSequenceWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement sequence is well-formed
-        //  Method 1 Authored by Chan Xu, u7076870
+        //  Method 1 Authored by Lily Chen, u6004244
+        // Count how many times the substring appears in the larger string
+        List<Integer> intList0 = Tiles.tilesCount(placement, TilesEnum.Four.getTiles());
+        List<Integer> intList1 = Tiles.tilesCount(placement, TilesEnum.Three.getTiles());
+        List<Integer> intList2 = Tiles.tilesCount(placement, TilesEnum.Two.getTiles());
+        if (placement.length() % 6 == 0) {
+            for (int i = 0; i < placement.length() - 6; i += 6) {
+                if (!(isPiecePlacementWellFormed(placement.substring(i, i + 6)))) {
+                    return false;
+                }
+            }
+        } else return false;
+        return Collections.max(intList0).compareTo(4) <= 0 && Collections.max(intList1).compareTo(3) <= 0 && Collections.max(intList2).compareTo(2) <= 0;
+    }
+
+    //  Method 2 Authored by Chan Xu, u7076870
 //        int aacb = 0; int cbaa = 0; int acba = 0; int baac = 0; int aaaa = 0;
 //        int cbcb = 0; int bcbc = 0;
 //        int cccc = 0; int bbbb = 0; int dacc = 0; int cdac = 0; int ccda = 0; int accd = 0; int dbba = 0; int adbb = 0; int badb = 0; int bbad = 0; int ddbc = 0; int cddb = 0; int bcdd = 0; int dbcd = 0; int adad = 0; int dada = 0; int dddd = 0;
@@ -488,21 +535,6 @@ public class Metro {
 //        }
 //        return aacb <= 4 && cbaa <= 4 && acba <= 4 && baac <= 4 && aaaa <= 4 && cbcb <= 3 && bcbc <= 3 && cccc <= 2 && bbbb <= 2 && dacc <= 2 && cdac <= 2 && ccda <= 2 && accd <= 2 && dbba <= 2 && adbb <= 2 && badb <= 2 && bbad <= 2 && ddbc <= 2 && cddb <= 2 && bcdd <= 2 && dbcd <= 2 && adad <= 2 && dada <= 2 && dddd <= 2;
 
-        //  Method 2
-        // Count how many times the substring appears in the larger string
-        List<Integer> intList0 = Tiles.tilesCount(placement, TilesEnum.Four.getTiles());
-        List<Integer> intList1 = Tiles.tilesCount(placement, TilesEnum.Three.getTiles());
-        List<Integer> intList2 = Tiles.tilesCount(placement, TilesEnum.Two.getTiles());
-        if (placement.length() % 6 == 0) {
-            for (int i = 0; i < placement.length() - 6; i += 6) {
-                if (!(isPiecePlacementWellFormed(placement.substring(i, i + 6)))) {
-                    return false;
-                }
-            }
-        } else return false;
-        return Collections.max(intList0).compareTo(4) <= 0 && Collections.max(intList1).compareTo(3) <= 0 && Collections.max(intList2).compareTo(2) <= 0;
-    }
-
 
     /**
      * Task 5
@@ -532,7 +564,7 @@ public class Metro {
         int index = rand.nextInt(joinedList.size());
         return joinedList.get(index);
     }
-        //  Method 2
+    //  Method 2 Authored by Lily Chen, u6004244
     // Create total tiles list
 //        List<String> repeatList0 = new ArrayList<>();
 //        List<String> repeatList1 = new ArrayList<>();
@@ -724,12 +756,50 @@ public class Metro {
      */
     public static int[] getScore(String placementSequence, int numberOfPlayers) {
         // FIXME Task 7: determine the current score for the game
-        //  Authored by Xikang Song, u6486892
-        int[] res = new int[numberOfPlayers];
-        int[] s = new int[32];
+        //  Authored by Xikang Song, u6486892; Chan Xu, u7076870
+        int[] s = singleTrackScore(placementSequence);
+        //if (placementSequence.equals(SAMPLE_START)) res[1]--;
+        return sumTrackScore(s, numberOfPlayers);
+    }
+
+    protected static int[] sumTrackScore(int[] station, int numberOfPlayers) {
+        int[] allScores = new int[numberOfPlayers];
+        if (numberOfPlayers == 2)
+            for (int i = 0; i < 32; i++)
+                allScores[i % 2] += station[i];
+        else if (numberOfPlayers == 3) {// 3  10  4  3  1  6  6  31  2  4
+            allScores[0] = station[0] + station[3] + station[5] + station[10] + station[14] + station[19] + station[22] + station[24] + station[27] + station[30];
+            allScores[1] = station[1] + station[6] + station[8] + station[11] + station[13] + station[18] + station[21] + station[26] + station[28] + station[31];
+            allScores[2] = station[2] + station[4] + station[7] + station[9] + station[12] + station[17] + station[20] + station[23] + station[25] + station[29];
+        } else if (numberOfPlayers == 4) {
+            allScores[0] = station[3] + station[6] + station[10] + station[15] + station[19] + station[22] + station[26] + station[31];
+            allScores[1] = station[2] + station[7] + station[11] + station[14] + station[18] + station[23] + station[27] + station[30];
+            allScores[2] = station[0] + station[5] + station[9] + station[12] + station[17] + station[20] + station[24] + station[29];
+            allScores[3] = station[1] + station[4] + station[8] + station[13] + station[16] + station[21] + station[25] + station[28];
+        } else if (numberOfPlayers == 5) {
+            allScores[0] = station[0] + station[4] + station[9] + station[13] + station[21] + station[27];
+            allScores[1] = station[5] + station[11] + station[17] + station[22] + station[26] + station[31];
+            allScores[2] = station[2] + station[6] + station[14] + station[18] + station[24] + station[28];
+            allScores[3] = station[1] + station[8] + station[12] + station[20] + station[25] + station[29];
+            allScores[4] = station[3] + station[7] + station[10] + station[19] + station[23] + station[30];
+        } else {
+            allScores[0] = station[0] + station[4] + station[9] + station[18] + station[26];
+            allScores[1] = station[1] + station[10] + station[17] + station[24] + station[28];
+            allScores[2] = station[3] + station[7] + station[13] + station[20] + station[25];
+            allScores[3] = station[5] + station[14] + station[19] + station[23] + station[30];
+            allScores[4] = station[2] + station[8] + station[12] + station[22] + station[29];
+            allScores[5] = station[6] + station[11] + station[21] + station[27] + station[31];
+        }
+        //if (placementSequence.equals(SAMPLE_START)) res[1]--;
+        return allScores;
+    }
+
+    protected static int[] singleTrackScore(String placementSequence) {
+        //Calculate the scores of every complete track that starts from each station and store them into an array
+        int[] station = new int[32];
         String str;
-        for (int l = placementSequence.length(), next, row, col, t, j, i = 0; i < 32; i++) {
-            t = 0;
+        for (int l = placementSequence.length(), next, row, col, j, i = 0; i < 32; i++) {
+            int t = 0;
             if (i < 8) {
                 next = 0;
                 row = 0;
@@ -771,41 +841,10 @@ public class Metro {
             } while (next != -1 && 0 <= row && row <= 7 && 0 <= col && col <= 7);
             if (row == -1 || row == 8 || col == -1 || col == 8
                     || (3 <= row && row <= 4 && 3 <= col && col <= 4))
-                s[i] = (3 <= row && row <= 4 && 3 <= col && col <= 4) ? 2 * t : t;
+                station[i] = (3 <= row && row <= 4 && 3 <= col && col <= 4) ? 2 * t : t;
         }
-
-        //sum the scores for each player
-        if (numberOfPlayers == 2)
-            for (int i = 0; i < 32; i++)
-                res[i % 2] += s[i];
-        else if (numberOfPlayers == 3) {// 3  10  4  3  1  6  6  31  2  4
-            res[0] = s[0] + s[3] + s[5] + s[10] + s[14] + s[19] + s[22] + s[24] + s[27] + s[30];
-            res[1] = s[1] + s[6] + s[8] + s[11] + s[13] + s[18] + s[21] + s[26] + s[28] + s[31];
-            res[2] = s[2] + s[4] + s[7] + s[9] + s[12] + s[17] + s[20] + s[23] + s[25] + s[29];
-        } else if (numberOfPlayers == 4) {
-            res[0] = s[3] + s[6] + s[10] + s[15] + s[19] + s[22] + s[26] + s[31];
-            res[1] = s[2] + s[7] + s[11] + s[14] + s[18] + s[23] + s[27] + s[30];
-            res[2] = s[0] + s[5] + s[9] + s[12] + s[17] + s[20] + s[24] + s[29];
-            res[3] = s[1] + s[4] + s[8] + s[13] + s[16] + s[21] + s[25] + s[28];
-        } else if (numberOfPlayers == 5) {
-            res[0] = s[0] + s[4] + s[9] + s[13] + s[21] + s[27];
-            res[1] = s[5] + s[11] + s[17] + s[22] + s[26] + s[31];
-            res[2] = s[2] + s[6] + s[14] + s[18] + s[24] + s[28];
-            res[3] = s[1] + s[8] + s[12] + s[20] + s[25] + s[29];
-            res[4] = s[3] + s[7] + s[10] + s[19] + s[23] + s[30];
-        } else {
-            res[0] = s[0] + s[4] + s[9] + s[18] + s[26];
-            res[1] = s[1] + s[10] + s[17] + s[24] + s[28];
-            res[2] = s[3] + s[7] + s[13] + s[20] + s[25];
-            res[3] = s[5] + s[14] + s[19] + s[23] + s[30];
-            res[4] = s[2] + s[8] + s[12] + s[22] + s[29];
-            res[5] = s[6] + s[11] + s[21] + s[27] + s[31];
-        }
-        //if (placementSequence.equals(SAMPLE_START)) res[1]--;
-        return res;
+        return station;
     }
-
-
 
     protected static int getNextExit(String tile, int entry) {
         if (entry < 0 || entry > 7) return -1;
