@@ -1,8 +1,5 @@
 package comp1110.ass2;
 
-
-import comp1110.ass2.gittest.A;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
