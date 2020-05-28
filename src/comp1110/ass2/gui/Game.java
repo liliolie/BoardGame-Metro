@@ -11,11 +11,13 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -54,6 +56,7 @@ public class Game extends Application {
 
     private final Group root = new Group();
     private final Group controls = new Group();
+    private final Group startGroup = new Group();
     private final Group scores = new Group();
     private final Group tiles = new Group();
     private final Group board = new Group();
@@ -530,6 +533,25 @@ public class Game extends Application {
             }
         });
     }
+//    @Override
+//    public void start(Stage startStage) throws Exception{
+//        startStage.setTitle("Metro The Board Game");
+//        Scene start = new Scene(startGroup, VIEWER_WIDTH, VIEWER_HEIGHT);
+//        Button button = new Button();
+//        button.setText("Start");
+//        button.setOnAction(actionEvent -> {
+//
+//        });
+//        VBox vbox = new VBox();
+//        vbox.getChildren().addAll(button);
+//        vbox.setSpacing(10);
+//        vbox.setLayoutX((float)VIEWER_WIDTH/2);
+//        vbox.setLayoutY((float)VIEWER_HEIGHT/2);
+//
+//        startGroup.getChildren().addAll(vbox);
+//        startStage.setScene(start);
+//        startStage.show();
+//    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {

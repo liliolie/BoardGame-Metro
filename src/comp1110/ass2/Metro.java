@@ -502,7 +502,7 @@ public class Metro {
                     }
                 if (str.equals("")) break;
                 //get the way to next tile by entry number and tile type
-                next = getNextExit(str, next);
+                next = Tiles.getNextExit(str, next);
                 if (next != -1) {
                     t++;
                     if (next == 0 || next == 1) row--;
@@ -520,36 +520,6 @@ public class Metro {
                 station[i] = (3 <= row && row <= 4 && 3 <= col && col <= 4) ? 2 * t : t;
         }
         return station;
-    }
-
-    protected static int getNextExit(String tile, int entry) {
-        if (entry < 0 || entry > 7) return -1;
-        if (!TilesEnum.All.getTiles().contains(tile)) return -1;
-        if (entry % 2 == 0)
-            switch (tile.charAt(entry / 2)) {
-                case 'a':
-                    return entry < 3 ? entry + 5 : entry - 3;
-                case 'b':
-                    return entry == 6 ? 1 : entry + 3;
-                case 'c':
-                    return entry == 0 ? 7 : entry - 1;
-                case 'd':
-                    return entry + 1;
-            }
-        for (int t = entry, i = 0; i < 4; i++) {
-            switch (tile.charAt(i)) {
-                case 'a':
-                    t = i < 3 ? i + 5 : i - 3;
-                case 'b':
-                    t = i == 6 ? 1 : i + 3;
-                case 'c':
-                    t = i == 0 ? 7 : i - 1;
-                case 'd':
-                    t = i + 1;
-            }
-            if (t == entry) return i;
-        }
-        return -1;
     }
 
     /**

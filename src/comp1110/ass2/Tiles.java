@@ -75,7 +75,7 @@ public class Tiles {
         }
         return false;
     }
-
+    // Authored by XiKang Song, u6486892
     public static List<Integer> tilesCount(String placement, List<String> tilesList){
         List<Integer> intList = new ArrayList<>(5);
         int[] num = new int[tilesList.size()];
@@ -87,5 +87,35 @@ public class Tiles {
             intList.add(num[i]);
         }
         return intList;
+    }
+    // Authored by XiKang Song, u6486892
+    public static int getNextExit(String tile, int entry) {
+        if (entry < 0 || entry > 7) return -1;
+        if (!TilesEnum.All.getTiles().contains(tile)) return -1;
+        if (entry % 2 == 0)
+            switch (tile.charAt(entry / 2)) {
+                case 'a':
+                    return entry < 3 ? entry + 5 : entry - 3;
+                case 'b':
+                    return entry == 6 ? 1 : entry + 3;
+                case 'c':
+                    return entry == 0 ? 7 : entry - 1;
+                case 'd':
+                    return entry + 1;
+            }
+        for (int t = entry, i = 0; i < 4; i++) {
+            switch (tile.charAt(i)) {
+                case 'a':
+                    t = i < 3 ? i + 5 : i - 3;
+                case 'b':
+                    t = i == 6 ? 1 : i + 3;
+                case 'c':
+                    t = i == 0 ? 7 : i - 1;
+                case 'd':
+                    t = i + 1;
+            }
+            if (t == entry) return i;
+        }
+        return -1;
     }
 }
