@@ -21,17 +21,17 @@ public class GetNextExitTest {
     public void testIllegalEntry() {
         String tile = Utilities.BOARDSTRINGS_FOR_DECK[0].substring(0, 4);
         int entry = -1;
-        int res = Metro.getNextExit(tile, entry);
+        int res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == EXPECTED_INVALID);
 
         entry = 50;
-        res = Metro.getNextExit(tile, entry);
+        res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == EXPECTED_INVALID);
 
         entry = -128;
-        res = Metro.getNextExit(tile, entry);
+        res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == EXPECTED_INVALID);
     }
@@ -43,14 +43,14 @@ public class GetNextExitTest {
         Random rand = new Random();
         for (String tile : illegal_tile) {
             int entry = rand.nextInt(8);
-            int res = Metro.getNextExit(tile, entry);
+            int res = Tiles.getNextExit(tile, entry);
             assertTrue("For invalid tile at enrty \"" + entry + "\" " +
                     "on tile " + tile + ", got exit " + res, res == EXPECTED_INVALID);
         }
 
         String tile = null;
         int entry = rand.nextInt(8);
-        int res = Metro.getNextExit(tile, entry);
+        int res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid tile at enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == EXPECTED_INVALID);
     }
@@ -59,29 +59,29 @@ public class GetNextExitTest {
     public void tesCommonTrip() {
         String tile = "aaaa";
         int entry = 0;
-        int res = Metro.getNextExit(tile, entry);
+        int res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == 5);
 
         entry = 3;
-        res = Metro.getNextExit(tile, entry);
+        res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == 2);
 
 
         tile = "bcbc";
         entry = 1;
-        res = Metro.getNextExit(tile, entry);
+        res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == entry - 1);
 
         entry = 3;
-        res = Metro.getNextExit(tile, entry);
+        res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == entry - 1);
 
         entry = 6;
-        res = Metro.getNextExit(tile, entry);
+        res = Tiles.getNextExit(tile, entry);
         assertTrue("For invalid input enrty \"" + entry + "\" " +
                 "on tile " + tile + ", got exit " + res, res == entry - 1);
 

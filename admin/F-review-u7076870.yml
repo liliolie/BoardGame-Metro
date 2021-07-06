@@ -13,11 +13,33 @@ author:
 # Write the class or method being reviewed here.
 #
 component:
+  Metro.class
+  Line 692- 805/getNextExit method;
+  Game.class
 
 # Write a list of review comments here.
 #
 comments:
-  -
+  - Naming, In Task 7, the author uses a clear method name to help me understand what he does in his function.
+    For example, "getNextExit" method clearly indicates its functionality, which returns exit gate number 0-8.
+    It also follows the Java code conventions.
 
+    Documentation, There are some comments in this part, not too many but still helpful for me to read the code.
+    For example, line 694 gives a comment for the loop that indicates a prediction for the next movement.
 
+    Structure, It is well designed in Object-Oriented thinking. In Game.class, the author imports JavaFX source
+     packages that contain lots of methods, such as ImageView.setimage, img.setLayoutX, which are good examples to
+     help me understand the program structure. These methods have already been written in the package, and it is easy for us
+     to call them for the source package.
 
+    Framework & Style, In Task 7 getScore, the author applies an allocation rule for those stations and stores the
+     current allocation information, which may be helpful to build AI opponents in the future. We expect a method to
+     call it after every turn ends, so we can obtain the current board situation and apply greedy algorithm to make better
+     next step choice. It's one of the best features in his code.
+
+    In Game.class, method "snapToGrid" contains an "if" argument, which calls "isPlacementValid" whenever a
+     player places a tile on the board, because "isPlacementValid" is capsulated in Metro.class very well, so it can
+     be a reference whenever we need to check the validation of a placementSequence.
+
+    In task 7, the author removes the first invalid case from the loop, so it can help to lower redundancy,
+     making code more efficient.
